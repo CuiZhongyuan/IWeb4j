@@ -1,0 +1,14 @@
+server:
+  port: 9080
+  servlet:
+    context-path: /
+
+logging:
+  config: classpath:log4j2.xml
+
+#定时任务配置
+#'index.job': '0 0 0 * * ?'
+#'thirdOrderCancel.job': '0 0/60 * * * ?'
+'autoRefund.job': '0 0/120  * * * ?'
+#'deleteCosUploadImg.job': '0 0 * * * ?'
+
