@@ -1,5 +1,6 @@
 package com.webui.webcases;
 
+import com.webui.utils.PrintscreenUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,11 +19,7 @@ public class Images {
         WebDriver driver = new ChromeDriver();
         driver.get("https://testerhome.com");
         //截图
-        File srcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(srcFile,new File("src/main/java/shot.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PrintscreenUtils printscreenUtils = new PrintscreenUtils();
+        printscreenUtils.printscreenUtils(driver);
     }
 }
