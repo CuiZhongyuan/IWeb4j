@@ -1,4 +1,4 @@
-package com.webui.utils;
+package com.iwebui.utils;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;

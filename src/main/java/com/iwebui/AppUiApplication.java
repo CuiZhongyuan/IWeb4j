@@ -1,6 +1,6 @@
-package com.webui;
+package com.iwebui;
 
-import com.webui.utils.SpringContextUtils;
+import com.iwebui.utils.SpringContextUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

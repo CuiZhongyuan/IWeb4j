@@ -1,4 +1,4 @@
-package com.webui.webcases;
+package com.iwebui.webcases;
 
 
 import org.openqa.selenium.By;
@@ -13,7 +13,7 @@ public class WebTest {
     @Test
     public static void baiducase() {
         //设置系统变量（浏览器驱动名称，相对路径）
-        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver84.0.4147.exe");
+        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver.exe");
         //实例化WebDriver,启动浏览器
         WebDriver driver = new ChromeDriver();
         //在浏览器中输入网址，并打开网页
@@ -39,7 +39,7 @@ public class WebTest {
    @Test
     public static void testcase() {
         //设置系统变量（浏览器驱动名称，相对路径）
-        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver84.0.4147.exe");
+        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver.exe");
         //实例化WebDriver,启动浏览器
         WebDriver driver = new ChromeDriver();
         //在浏览器中输入网址，并打开网页
@@ -71,7 +71,7 @@ public class WebTest {
     @Test
     public void testcase1(){
         //设置系统变量（浏览器驱动名称，相对路径）
-        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver84.0.4147.exe");
+        System.setProperty("webdriver.chrome.driver","F:\\00_3IdeaProjects\\gitHubers\\WebUiProject\\src\\main\\resources\\chromedriver\\chromedriver.exe");
         //实例化WebDriver,启动浏览器
         WebDriver driver = new ChromeDriver();
         //在浏览器中输入网址，并打开网页

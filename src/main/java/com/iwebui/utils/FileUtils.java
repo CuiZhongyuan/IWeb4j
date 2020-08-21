@@ -1,4 +1,4 @@
-package com.webui.utils;
+package com.iwebui.utils;
 
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;

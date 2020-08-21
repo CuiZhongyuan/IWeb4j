@@ -1,4 +1,4 @@
-package com.webui.utils;
+package com.iwebui.utils;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
@@ -10,7 +10,8 @@ import java.util.Date;
 /**
  * 日期工具类
  *
- * @author lgl
+ * @author czy
+ * @date 2020年08月03日上午午11:20:58
  */
 public class DateUtils extends DateUtil {
     /**

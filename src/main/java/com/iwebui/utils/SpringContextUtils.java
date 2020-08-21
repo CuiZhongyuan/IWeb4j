@@ -1,4 +1,4 @@
-package com.webui.utils;
+package com.iwebui.utils;
 
 import org.springframework.context.ApplicationContext;
 
