@@ -19,8 +19,8 @@ import java.io.File;
 @Getter
 public class BaseConfig {
 
-    // 驱动根路径 /target/test-classes/driver
-    private String chromeDriverPath=this.getClass().getResource("/").getPath() + "chromedriver"+"/"+"chromedriver.exe";
+    // 驱动存放路径 target/classes/chromedriver/chromedriver.exe
+    private String chromeDriverPath=this.getClass().getClassLoader().getResource("chromedriver/chromedriver.exe").getPath();
 
     private String remoteIP="192.168.1.168";
 

@@ -33,6 +33,12 @@ public class TestCase {
         PrintscreenUtils printscreenUtils = new PrintscreenUtils();
         printscreenUtils.printscreenUtils(driver);
         System.out.println("========测试通过======");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
     }
 
 }
