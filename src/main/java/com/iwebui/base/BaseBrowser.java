@@ -1,6 +1,5 @@
 package com.iwebui.base;
 
-import com.iwebui.utils.PropertiesReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -49,7 +48,7 @@ public class BaseBrowser {
         this.actions = new Actions(driver);
         this.je = ((JavascriptExecutor) driver);
         // 显示等待时长
-        long timeout = Long.parseLong(PropertiesReader.getKey("driver.timeouts.webDriverWait"));
+        long timeout = Long.parseLong(String.valueOf(new BaseConfig().getWebDriverWait()));
         this.wait = new WebDriverWait(driver, timeout);
     }
 
@@ -120,6 +119,12 @@ public class BaseBrowser {
      */
     public void enterPage(String url) {
         driver.get(url);
+        //强制等待浏览器启动一会
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /*============================== 切换窗口句柄 ==============================*/

@@ -22,9 +22,9 @@ public class BaseConfig {
     //隐式等待(s)
     private int implicitlyWait = 10;
     //显示等待(s)
-    private int webDriverWait = 10;
+    private int webDriverWait = 20;
     //页面加载等待(s)
-    private int pageLoadTimeout = 10;
+    private int pageLoadTimeout = 20;
     //JS 等待(s)
     private int setScriptTimeout = 10;
     // todo : 其它配置参数可自定义
