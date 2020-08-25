@@ -1,5 +1,6 @@
 package com.iwebui.utils;
 
+import com.iwebui.listener.ExtentTestNGIReporterListener;
 import com.iwebui.listener.TestReportListener;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
@@ -20,7 +21,7 @@ public class BaseTestngInit {
         //创建testng对象
         TestNG testng = new TestNG();
         //创建报告监听器对象
-        TestReportListener reportListener = new TestReportListener();
+        ExtentTestNGIReporterListener reportListener = new ExtentTestNGIReporterListener();
 //        TestLogListener testLogListener = new TestLogListener();
         //设置需要执行的测试用例类
         testng.setTestClasses(new Class[] {com.iwebui.business.TestCase.class});

@@ -1,6 +1,5 @@
-package com.iwebui.basepage;
+package com.iwebui.base;
 
-import com.iwebui.utils.RedisUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,15 +20,6 @@ public class BasePage extends BaseBrowser {
         super(driver);
     }
 
-    /**
-     * 构造器 2
-     *
-     * @param driver    驱动
-     * @param redisUtil redis 连接工具类
-     */
-    public BasePage(WebDriver driver, RedisUtil redisUtil) {
-        super(driver, redisUtil);
-    }
 
     /*============================== 页面可共用的操作 ==============================*/
 

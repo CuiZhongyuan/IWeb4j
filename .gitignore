@@ -13,3 +13,6 @@ buildNumber.properties
 *.iml
 *.log
 *.log.gz
+/com.iwebui/
+/src/main/resources/printscreen/
+/test-output/

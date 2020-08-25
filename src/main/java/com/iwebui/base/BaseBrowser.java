@@ -1,7 +1,6 @@
-package com.iwebui.basepage;
+package com.iwebui.base;
 
 import com.iwebui.utils.PropertiesReader;
-import com.iwebui.utils.RedisUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -39,10 +38,6 @@ public class BaseBrowser {
      */
     protected WebDriverWait wait;
 
-    /**
-     * redis 连接工具类
-     */
-    protected RedisUtil redisUtil;
 
     /**
      * 构造器 1
@@ -58,21 +53,6 @@ public class BaseBrowser {
         this.wait = new WebDriverWait(driver, timeout);
     }
 
-    /**
-     * 构造器 2
-     *
-     * @param driver    驱动
-     * @param redisUtil redis 连接工具类
-     */
-    public BaseBrowser(WebDriver driver, RedisUtil redisUtil) {
-        this.driver = driver;
-        this.actions = new Actions(driver);
-        this.je = ((JavascriptExecutor) driver);
-        // 显示等待时长
-        long timeout = Long.parseLong(PropertiesReader.getKey("driver.timeouts.webDriverWait"));
-        this.wait = new WebDriverWait(driver, timeout);
-        this.redisUtil = redisUtil;
-    }
 
     /*============================== 基本元素操作 ==============================*/
 
