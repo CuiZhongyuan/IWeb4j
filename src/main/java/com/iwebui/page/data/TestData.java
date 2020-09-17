@@ -9,10 +9,10 @@ package com.iwebui.page.data;
 
 public class TestData {
      //test网址
-    public static final String URL = "https://github.com/";
+    public static final String URL = "https://www.baidu.com/";
      //登录账号
-    public static final String TEXT_NAME = "name";
+    public static final String TEXT_NAME = "xxx";
      //登录账号
-    public static final String TEXT_PWD = "pwd";
+    public static final String TEXT_PWD = "xxx";
 
 }

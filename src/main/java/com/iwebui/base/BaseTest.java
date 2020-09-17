@@ -1,8 +1,10 @@
 package com.iwebui.base;
 
+import com.iwebui.utils.PrintscreenUtils;
 import com.iwebui.utils.WordartDisplayer;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.testng.TestNGException;
 import org.testng.annotations.*;
 
 /**
@@ -46,5 +48,24 @@ public class BaseTest  {
         /* 驱动配置 */
         baseDriver = new BaseChromeDriver();
         driver = baseDriver.startBrowser(baseConfig);
+    }
+    /**
+     * 每个方法之后出现异常截图
+     */
+    public void printscreen(){
+        PrintscreenUtils printscreenUtils = new PrintscreenUtils();
+        printscreenUtils.printscreenUtils(driver);
+        System.out.println("捕获异常");
+    }
+    /**
+     * 执行一个测试用例之后执行
+     */
+//    @AfterTest(alwaysRun = true)
+    public void afterTest() throws InterruptedException {
+        // 驱动退出关闭浏览器
+        baseDriver.closeBrowser();
+        driver = null;
+//        Thread.sleep(10000);
+        // todo : 其他工具的释放操作（看需要）
     }
 }

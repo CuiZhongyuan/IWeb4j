@@ -24,7 +24,7 @@ public class BaseTestngInit {
         ExtentTestNGIReporterListener reportListener = new ExtentTestNGIReporterListener();
 //        TestLogListener testLogListener = new TestLogListener();
         //设置需要执行的测试用例类
-        testng.setTestClasses(new Class[] {com.iwebui.business.TestCase.class});
+        testng.setTestClasses(new Class[] {com.iwebui.business.SampleCase.class});
         //添加监听器
         testng.addListener(reportListener);
 //        testng.addListener(testLogListener);

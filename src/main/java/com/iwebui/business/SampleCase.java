@@ -1,7 +1,6 @@
 package com.iwebui.business;
 
 import com.iwebui.base.BaseTest;
-import com.iwebui.handle.LoginHandle;
 import com.iwebui.handle.SampleHandle;
 import org.testng.annotations.Test;
 
@@ -16,5 +15,7 @@ public class SampleCase extends BaseTest {
         sampleHandle.searchPage();
         //开始输入账号密码登录
         sampleHandle.enterPage();
+        //找到西游洞
+        sampleHandle.xiyouodng();
     }
 }

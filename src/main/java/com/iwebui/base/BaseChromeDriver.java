@@ -1,12 +1,13 @@
 package com.iwebui.base;
 
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import static java.lang.Thread.sleep;
 
-
+@Slf4j
 public class BaseChromeDriver {
 
     /**
@@ -36,5 +37,24 @@ public class BaseChromeDriver {
             driver.manage().window().maximize();
             return driver;
         }
+    /**
+     * 关闭浏览器
+     *
+     * @throws InterruptedException sleep 休眠异常
+     */
+    public void closeBrowser()  {
+        // JS 显示弹出框表示测试结束
+        ((JavascriptExecutor) driver).executeScript("alert('测试完成，浏览器在10s后关闭！')");
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+        log.info( "浏览器已成功关闭！");
+    }
 
 }

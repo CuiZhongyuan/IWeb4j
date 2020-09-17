@@ -9,8 +9,8 @@ public class RunCasesAll {
  * */
    @Test
     public void runCases(){
-       //打印iappium启动提示
-        WordartDisplayer.display();
+//       //打印iappium启动提示
+//        WordartDisplayer.display();
         //执行测试用例入口
         BaseTestngInit baseTestngInit = new BaseTestngInit();
         baseTestngInit.baseTestngInitCode();
