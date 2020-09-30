@@ -4,8 +4,9 @@ import com.iwebui.utils.PrintscreenUtils;
 import com.iwebui.utils.WordartDisplayer;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.testng.TestNGException;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 /**
  * 测试基类
@@ -60,7 +61,7 @@ public class BaseTest  {
     /**
      * 执行一个测试用例之后执行
      */
-//    @AfterTest(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void afterTest() throws InterruptedException {
         // 驱动退出关闭浏览器
         baseDriver.closeBrowser();

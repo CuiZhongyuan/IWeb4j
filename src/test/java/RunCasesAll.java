@@ -1,5 +1,6 @@
 import com.iwebui.utils.BaseTestngInit;
 import com.iwebui.utils.WordartDisplayer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
 public class RunCasesAll {

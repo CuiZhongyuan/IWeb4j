@@ -9,9 +9,9 @@ import org.springframework.context.ApplicationContext;
  * @author czy-2020727
  */
 @SpringBootApplication
-public class AppUiApplication {
+public class IWebUiApplication {
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(AppUiApplication.class, args);
+        ApplicationContext context = SpringApplication.run(IWebUiApplication.class, args);
         SpringContextUtils.setApplicationContext(context);
     }
 }
