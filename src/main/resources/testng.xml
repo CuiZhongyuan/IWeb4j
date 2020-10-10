@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Test Suite" verbose="2">
+<suite name="Test Suite" verbose="2"  allow-return-values="true">
     <parameter name="browserType" value="chrome" />
-    <parameter name="appURL" value="https://www.baidu.com/" />
+    <parameter name="appURL" value="http://cstrip.12301100.com/" />
     <parameter name="测试人员" value="Coding测试" />
     <test name="User allure2" allow-return-values="true">
         <classes>

@@ -16,4 +16,6 @@ public class RunCasesAll {
         BaseTestngInit baseTestngInit = new BaseTestngInit();
         baseTestngInit.baseTestngInitCode();
     }
+
+
 }

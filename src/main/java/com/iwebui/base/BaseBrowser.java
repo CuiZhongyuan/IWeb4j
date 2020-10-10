@@ -1,12 +1,12 @@
 package com.iwebui.base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import java.util.Set;
  * @author czy
  * @date 2020/1/28
  */
+@Slf4j
 public class BaseBrowser {
     /**
      * 驱动
@@ -37,7 +38,6 @@ public class BaseBrowser {
      */
     protected WebDriverWait wait;
 
-
     /**
      * 构造器 1
      *
@@ -52,7 +52,6 @@ public class BaseBrowser {
         this.wait = new WebDriverWait(driver, timeout);
     }
 
-
     /*============================== 基本元素操作 ==============================*/
 
     /**
@@ -62,9 +61,19 @@ public class BaseBrowser {
      * @return 定位到的元素
      */
     public WebElement locateElement(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        try {
+            wait = new WebDriverWait(driver, 10);
+            WebElement element = driver.findElement(locator);
+            if (element.isDisplayed()||element.isEnabled()) {
+                log.info("点击页面元素");
+                return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            }
+        }catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("================元素不存在或不可点击状态，请查看==================");
+            driver.navigate().refresh();
+        }
+        return null;
     }
-
     /**
      * 点击元素
      *
@@ -73,7 +82,6 @@ public class BaseBrowser {
      */
     public WebElement clickButton(By locator) {
         WebElement buttonElement = locateElement(locator);
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
         buttonElement.click();
         return buttonElement;
     }
@@ -118,12 +126,12 @@ public class BaseBrowser {
      * @param url 网址
      */
     public void enterPage(String url) {
-        driver.get(url);
-        //强制等待浏览器启动一会
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            driver.get(url);
+            Thread.sleep(8000);
+        }catch (NoSuchElementException | TimeoutException | InterruptedException e) {
+            System.out.println("================当前页面未捕获该元素，继续执行用例==================");
+            driver.navigate().refresh();
         }
     }
 

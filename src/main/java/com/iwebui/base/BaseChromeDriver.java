@@ -46,7 +46,7 @@ public class BaseChromeDriver {
      */
     public void closeBrowser()  {
         // JS 显示弹出框表示测试结束
-        ((JavascriptExecutor) driver).executeScript("alert('测试完成，浏览器在10s后关闭！')");
+        ((JavascriptExecutor) driver).executeScript("alert('测试完成，浏览器将在10s后关闭！')");
         try {
             sleep(10000);
         } catch (InterruptedException e) {
