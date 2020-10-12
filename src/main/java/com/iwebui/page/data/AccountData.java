@@ -7,9 +7,9 @@ package com.iwebui.page.data;
  * @date 2020/8/25
  */
 
-public class TestData {
+public class AccountData {
      //test网址
-    public static final String URL = "https://www.baidu.com/";
+    public static final String URL = "http://127.0.0.1:8090/index";
      //登录账号
     public static final String TEXT_NAME = "xxx";
      //登录账号

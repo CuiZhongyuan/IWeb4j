@@ -1,12 +1,12 @@
 package com.iwebui.base;
 
+import com.iwebui.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
+
 
 import java.util.Set;
 
@@ -68,9 +68,9 @@ public class BaseBrowser {
                 log.info("点击页面元素");
                 return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
             }
-        }catch (NoSuchElementException | TimeoutException e) {
+        }catch (NoSuchElementException | TimeoutException | NullPointerException  e) {
             System.out.println("================元素不存在或不可点击状态，请查看==================");
-            driver.navigate().refresh();
+//            driver.navigate().refresh();
         }
         return null;
     }
@@ -81,11 +81,18 @@ public class BaseBrowser {
      * @return 点击的元素
      */
     public WebElement clickButton(By locator) {
-        WebElement buttonElement = locateElement(locator);
-        buttonElement.click();
-        return buttonElement;
+        try{
+            long time1 = DateUtils.getCurrentMillisecond();
+            WebElement buttonElement = locateElement(locator);
+            buttonElement.click();
+            log.info("该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
+            return buttonElement;
+        }catch (NoSuchElementException | TimeoutException | NullPointerException  e) {
+            System.out.println("================元素不存在或不可点击状态，请查看==================");
+//            driver.navigate().refresh();
+        }
+       return null;
     }
-
     /**
      * 输入框输入数据
      *
@@ -94,6 +101,7 @@ public class BaseBrowser {
      * @return 输入框元素
      */
     public WebElement sendInput(By locator, CharSequence... content) {
+        wait = new WebDriverWait(driver, 10);
         WebElement inputElement = locateElement(locator);
         inputElement.clear();
         inputElement.sendKeys(content);
@@ -127,11 +135,10 @@ public class BaseBrowser {
      */
     public void enterPage(String url) {
         try {
-            driver.get(url);
-            Thread.sleep(8000);
-        }catch (NoSuchElementException | TimeoutException | InterruptedException e) {
+            driver.navigate().to(url);
+        }catch (NoSuchElementException | TimeoutException  e) {
             System.out.println("================当前页面未捕获该元素，继续执行用例==================");
-            driver.navigate().refresh();
+//            vdrier.navigate().refresh();
         }
     }
 
@@ -155,7 +162,6 @@ public class BaseBrowser {
         }
         return driver;
     }
-
     /**
      * 多窗口切换句柄，依据传入的句柄号码
      *

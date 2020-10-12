@@ -42,7 +42,7 @@ public class BaseChromeDriver {
     /**
      * 关闭浏览器
      *
-     * @throws InterruptedException sleep 休眠异常
+     * @throws
      */
     public void closeBrowser()  {
         // JS 显示弹出框表示测试结束
