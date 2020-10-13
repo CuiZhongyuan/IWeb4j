@@ -7,15 +7,13 @@ import com.iwebui.page.data.AccountData;
 import com.iwebui.page.data.TextData;
 import com.iwebui.page.data.YynCssData;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
-import org.testng.asserts.SoftAssert;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Set;
 
 import static org.openqa.selenium.Keys.ENTER;
@@ -29,7 +27,6 @@ import static org.openqa.selenium.Keys.ENTER;
 @Listeners( TestFailListener.class)
 @Slf4j
 public class TicketElement extends BaseBrowser {
-
     /**
      * 构造器 1
      *
@@ -38,7 +35,6 @@ public class TicketElement extends BaseBrowser {
     public TicketElement(WebDriver driver) {
         super(driver);
     }
-
     /**
      * 进入被测页面
      */
@@ -58,11 +54,6 @@ public class TicketElement extends BaseBrowser {
         clickButton(YynCssData.CLICK);
 //        sendInput(CssData.CLICK_PWD,TextData.PWD);
 //        clickButton(CssData.LOGINBUTTON);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 //        //软断言，断言失败后不影响后续程序往下走
 //        SoftAssert softAssert = new SoftAssert();
 //        softAssert.assertEquals("登录成功","只想截图","断言失败");
@@ -76,60 +67,58 @@ public class TicketElement extends BaseBrowser {
         clickButton(YynCssData.ROLE);
         //跳转第三个页面，分销业务链接
 //        clickButton(YynCssData.FSALE);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         //获取所有句柄(如果点击过快，会获取不到点击后的句柄)
         Set<String> handles = driver.getWindowHandles();
-        for (String handle : handles){
-            if (handle.equals(firstHandle)){
+        for (String handle : handles) {
+            if (handle.equals(firstHandle)) {
                 System.out.println("当前位置为第一个页面");
                 continue;
             }
             driver.switchTo().window(handle);
             String windowHandle = driver.getTitle();
-            if (windowHandle.equals("未来票房V2.0-景区平台")){
-                System.out.println("******"+driver.getWindowHandle());
+            if (windowHandle.equalsIgnoreCase("未来票房V2.0-景区平台")) {
+                System.out.println("******" + driver.getWindowHandle());
                 //点击委托景区
                 log.info("点击委托景区");
                 clickButton(YynCssData.SCENIC);
-                System.out.println("*****"+driver.getWindowHandle());
-                sendInput(YynCssData.SEARCH,TextData.SHILIN);
+                System.out.println("*****" + driver.getWindowHandle());
+                sendInput(YynCssData.SEARCH, TextData.SHILIN);
                 WebElement enter = driver.findElement(YynCssData.SEARCH);
                 enter.sendKeys(ENTER);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 //进入被搜索页面
                 clickButton(YynCssData.ENTERSHILIN);
                 //收起：景区列表菜单
                 clickButton(YynCssData.PACKUP);
                 //点击景区管理菜单
                 clickButton(YynCssData.SICNICSPOT);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 //点击门票菜单
                 clickButton(YynCssData.TICKET);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 //输入门票code
                 //由于此处使用的iframe内联框架，需要先进入内层才能正常定位元素，F12可以查看iframe标签
                 driver.switchTo().frame("iframe4");
-                sendInput(YynCssData.TICKETCODE,TextData.CODE);
+                sendInput(YynCssData.TICKETCODE, TextData.CODE);
                 clickButton(YynCssData.CODESEARCH);
-                clickButton(YynCssData.TIME);
+                //点击弹框，再次进入第二个iframe内联框
+                clickPop(YynCssData.TIME);
+                //由于该弹框是div模拟框,需要先跳出第一个iframe，在切换该iframe内联框，defaultContent方法是返回首次打开的页面
+                driver.switchTo().defaultContent();
+                driver.switchTo().frame(2);
+                clickButton(YynCssData.ADD);
+                List<WebElement> deleteElements = driver.findElements(YynCssData.DELETE);
+                for (WebElement deleteElement : deleteElements ){
+                    if (deleteElement.isDisplayed()){
+                        deleteElement.click();
+                        clickPop(YynCssData.SURE);
+                    }else {
+                        System.out.println("无可删除时段信息");
+                    }
+                }
+                clickButton(YynCssData.SAVE);
 
-            }else if (windowHandle.equals("未来票房V2.0-分销业务系统")){
+                //时间控件使用js代码输入
+//                JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+//                javascriptExecutor.executeScript("var element = document.getElementById('searchStartDate')"+"element.value='2020-10-12';");
+            } else if (windowHandle.equals("未来票房V2.0-分销业务系统")) {
                 log.info("分销点击委托景区");
 //                clickButton(YynCssData.FSALESCENIC);
             }

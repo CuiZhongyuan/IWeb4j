@@ -40,7 +40,19 @@ public class YynCssData {
     public static final By TICKET = By.cssSelector(".J_menuItem[href='/company/proxy/ticket/index']");
     public static final By TICKETCODE = By.cssSelector("#searchticketCode");
     public static final By CODESEARCH = By.cssSelector("button[onclick='searchTable()']");
-    public static final By TIME = By.cssSelector("/html/body/div[2]/div/div/div/div[2]/div[2]/div[1]/div[2]/div[2]/table/tbody/tr/td/div/div[13]/span[2]/a[3]/text()");
-
+    //如果有多个相同类型可以根据索引取出
+//    public static final By TIME = By.xpath("//a[@class='btn btn-primary btn-xs'][3]");
+    //也可以使用css标签(*:模糊)属性值匹配
+    //<a href="#" class="btn btn-primary btn-xs" onclick="ticketTimePoint('77f2b46c-ce30-4f69-86d8-2a35e3798047')"><i class="fa fa-pencil"></i>时间点管理</a>
+    public static final By TIME = By.cssSelector("a[onclick*='ticketTimePoint']");
+    //定位iframe元素
+    public static final By IFRAME = By.cssSelector(".layui-layer-setwin");
+    public static final By ADD = By.cssSelector("#tablepager > tbody > tr");
+    //删除按钮元素：//button[contains(text(),'删除')]由于会出现多个需要转成list集合遍历删除
+    public static final By DELETE = By.xpath("//button[contains(text(),'删除')]");
+    //最后点击保存按钮
+    public static final By SAVE = By.cssSelector("#updateButton");
+    //确定删除按钮
+    public static final By SURE = By.cssSelector("div[id*='layui-layer']>div>a[class='layui-layer-btn0']");
 
 }

@@ -47,32 +47,25 @@ public class BaseBrowser {
         this.driver = driver;
         this.actions = new Actions(driver);
         this.je = ((JavascriptExecutor) driver);
-        // 显示等待时长
-        long timeout = Long.parseLong(String.valueOf(new BaseConfig().getWebDriverWait()));
-        this.wait = new WebDriverWait(driver, timeout);
     }
 
     /*============================== 基本元素操作 ==============================*/
 
     /**
      * 通过元素定位拿到 WebElement 元素对象
-     *
+     * 并且使用visibilityOfElementLocated方法是期望该元素存在于dom树上且可见后再返回该元素
      * @param locator By 类型元素定位
      * @return 定位到的元素
      */
     public WebElement locateElement(By locator) {
         try {
-            wait = new WebDriverWait(driver, 10);
-            WebElement element = driver.findElement(locator);
-            if (element.isDisplayed()||element.isEnabled()) {
-                log.info("点击页面元素");
-                return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            }
-        }catch (NoSuchElementException | TimeoutException | NullPointerException  e) {
-            System.out.println("================元素不存在或不可点击状态，请查看==================");
-//            driver.navigate().refresh();
+            wait = new WebDriverWait(driver, 20);
+            WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return webElement;
+        }catch (Exception  e) {
+            System.out.println("================定位元素超时，请查看=================="+locator);
+            return null;
         }
-        return null;
     }
     /**
      * 点击元素
@@ -88,10 +81,32 @@ public class BaseBrowser {
             log.info("该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
             return buttonElement;
         }catch (NoSuchElementException | TimeoutException | NullPointerException  e) {
-            System.out.println("================元素不存在或不可点击状态，请查看==================");
-//            driver.navigate().refresh();
+            System.out.println("================元素不存在或不可点击状态，请查看=================="+locator);
+            return null;
         }
-       return null;
+    }
+    /**
+     * 点击弹框元素
+     *
+     * @param locator By 类型元素定位
+     * @return 点击弹框按钮，解决弹框按钮可见点击后由于弹框页面后续元素未渲染完成出现点击后没有弹框出现问题
+     */
+    public WebElement clickPop(By locator) {
+        wait = new WebDriverWait(driver, 20);
+        try {
+            String jsToBeExecute = "return document.readyState =='complete'";
+            boolean isReady = (boolean) wait.until(ExpectedConditions.jsReturnsValue(jsToBeExecute));
+            if (isReady) {
+                long time1 = DateUtils.getCurrentMillisecond();
+                WebElement buttonPopElement = locateElement(locator);
+                buttonPopElement.click();
+                log.info("点击弹框事件耗时：" + (DateUtils.getCurrentMillisecond() - time1) + "ms");
+                return buttonPopElement;
+            }
+        } catch (Exception e) {
+            System.out.println("================元素不存在或不可点击状态，请查看=================="+locator);
+        }
+        return null;
     }
     /**
      * 输入框输入数据
@@ -101,7 +116,6 @@ public class BaseBrowser {
      * @return 输入框元素
      */
     public WebElement sendInput(By locator, CharSequence... content) {
-        wait = new WebDriverWait(driver, 10);
         WebElement inputElement = locateElement(locator);
         inputElement.clear();
         inputElement.sendKeys(content);
