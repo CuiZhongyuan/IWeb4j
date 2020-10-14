@@ -23,8 +23,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.openqa.selenium.Keys.ENTER;
-
-
 /**
  * 被测页面操作层对象
  * @author czy
