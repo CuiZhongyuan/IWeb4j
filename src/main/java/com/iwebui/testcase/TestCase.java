@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  * 测试用例业务层
  * @author czy
  * @version 1.0.0
- * @date 2020/8/1 23:26
+ * @date 2020/6/8 23:26
  */
 @Listeners( TestFailListener.class)
 public class TestCase<i> extends BaseTest {
@@ -40,7 +40,6 @@ public class TestCase<i> extends BaseTest {
     @Link("http://cstrip.12301100.com/")
     @Story("接口测试响应数据")
     @Description("可用于接口测试展示响应参数")
-
     public void testInterface() {
         try {
             String url = "http://cstrip.12301100.com/";

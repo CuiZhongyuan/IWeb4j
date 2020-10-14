@@ -14,7 +14,7 @@ import java.util.Set;
  * 封装浏览器中界面上最基本操作
  *
  * @author czy
- * @date 2020/1/28
+ * @date 2019/3/8
  */
 @Slf4j
 public class BaseBrowser {
@@ -80,7 +80,7 @@ public class BaseBrowser {
             buttonElement.click();
             log.info("该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
             return buttonElement;
-        }catch (NoSuchElementException | TimeoutException | NullPointerException  e) {
+        }catch (Exception e) {
             System.out.println("================元素不存在或不可点击状态，请查看=================="+locator);
             return null;
         }

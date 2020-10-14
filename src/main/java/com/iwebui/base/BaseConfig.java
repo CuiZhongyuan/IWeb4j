@@ -7,7 +7,7 @@ import lombok.Setter;
  * BaseApp
  * @author czy
  * @version 1.0.0
- * @date 2020/8/1 23:28
+ * @date 2019/3/8 23:28
  */
 
 /**
@@ -19,6 +19,7 @@ public class BaseConfig {
 
     // 驱动存放路径 target/classes/chromedriver/chromedriver.exe，同样可以把其它浏览器驱动放在这里
     private String chromeDriverPath = this.getClass().getClassLoader().getResource("chromedriver/chromedriver.exe").getPath();
+    //浏览器类型
     private String browserType = "chrome";
 //    //隐式等待(s)
     private int implicitlyWait = 10;

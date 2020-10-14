@@ -55,4 +55,7 @@ public class YynCssData {
     //确定删除按钮
     public static final By SURE = By.cssSelector("div[id*='layui-layer']>div>a[class='layui-layer-btn0']");
 
+    //登录失败提示语
+    public static final By TIPS = By.cssSelector("#span_id");
+
 }

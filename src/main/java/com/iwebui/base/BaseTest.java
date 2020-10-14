@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeTest;
  * 测试基类
  *
  * @author czy
- * @date 2020/1/22
+ * @date 2019/3/8
  */
 @Slf4j
 public class BaseTest  {

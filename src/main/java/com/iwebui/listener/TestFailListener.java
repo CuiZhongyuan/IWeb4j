@@ -10,7 +10,12 @@ import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.io.ByteArrayInputStream;
-
+/**
+ * 集成allure报告
+ *
+ * @author czy
+ * @date 2020/7/15
+ */
 public class TestFailListener extends TestListenerAdapter {
     public void onTestFailure(ITestResult result) {
         System.out.println("------ 当前测试方法： " + result.getMethod().getMethodName() + "执行失败...-----------");

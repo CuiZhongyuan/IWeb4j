@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * 封装各个模块页面都可以使用的操作方法
  *
  * @author czy
- * @date 2020/1/28
+ * @date 2019/3/8
  */
 public class BasePage extends BaseBrowser {
     /**
