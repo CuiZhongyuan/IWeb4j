@@ -6,6 +6,7 @@ import com.iwebui.page.data.CssData;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.page.data.TextData;
 import com.iwebui.page.data.YynCssData;
+import com.iwebui.utils.AssertWebUtil;
 import com.iwebui.utils.EasyPoiUtil;
 import com.iwebui.utils.UIElementUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -141,8 +142,9 @@ public class TicketElement extends BaseBrowser {
                 UIElementUtil.clickButton("登录页面","登入按钮",driver);
                 String getResponseTip = driver.findElement(YynCssData.TIPS).getText();
                 loginData.setActual(getResponseTip);
+                WebElement element = UIElementUtil.getElementByKeyword("登录页面","错误信息提示",driver);
+                AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
             } catch (Exception e) {
-//                System.out.println("异常");
                 e.printStackTrace();
             }
             collectS.add(loginData);
@@ -150,10 +152,7 @@ public class TicketElement extends BaseBrowser {
         if (collectS.size() == 0){
             System.out.println("测试用例无数据，请查看");
         }else {
-//        loginDatas.addAll(collectS);
-            //1.读取原始的excel文件  数据存入coll
-            //2.读取新的excel文件 执行业务 拼装数据 存入到 原始的coll
-            //3.将所有的coll 覆盖原excel文件，loginDatas可以保留原始记录并在原始记录下写入新的数据
+            //3.将所有实际获取结果写入实际结果中
             EasyPoiUtil.exportExcel(collectS,"测试用例集","登录用例", EasyPoiDatas.class,loginDatasPath, true);
         }
     }
