@@ -2,8 +2,6 @@ package com.iwebui.page.element;
 
 import com.iwebui.base.BaseBrowser;
 import com.iwebui.dto.EasyPoiDatas;
-import com.iwebui.dto.Page;
-import com.iwebui.listener.TestFailListener;
 import com.iwebui.page.data.CssData;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.page.data.TextData;
@@ -14,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 
 import java.util.ArrayList;
 import java.util.List;

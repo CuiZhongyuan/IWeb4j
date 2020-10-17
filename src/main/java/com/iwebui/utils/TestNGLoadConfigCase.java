@@ -15,8 +15,11 @@ public class TestNGLoadConfigCase extends AbstractTestNGSpringContextTests {
      */
     @Value("${pagexml.test}")
     private  String test;
+    @Value("${pagexml.config}")
+    private  String config;
     @Test
     public void configLoad(){
         System.out.println(test);
+        System.out.println(config);
     }
 }

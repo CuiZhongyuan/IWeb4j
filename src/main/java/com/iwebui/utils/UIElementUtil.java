@@ -12,20 +12,42 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 @Slf4j
 public class UIElementUtil {
     /**
      * 显示等待
      */
     private static WebDriverWait wait;
+    public static Object getCommonYml(Object key){
+        Resource resource = new ClassPathResource("/application-dev.yml");
+        Properties properties = null;
+        try {
+            YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
+            yamlFactory.setResources(resource);
+            properties =  yamlFactory.getObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return properties.get(key);
+    }
     public static List<Page> pageDatas = new ArrayList<>();
     static {
-        lodePages("src\\main\\resources\\pagesxml\\loginPage.xml");
+        //通过yaml配置文件引入路径
+        String xmlpathconfig = (String) getCommonYml("pagexml.xmlpathconfig");
+        lodePages(xmlpathconfig);
     }
     /**
      * @param pagesxmlPath 需要加载的xml路径

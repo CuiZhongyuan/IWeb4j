@@ -7,7 +7,7 @@ logging:
   config: classpath:log4j2.xml
 
 pagexml:
-  test: test
+  xmlpathconfig: src/main/resources/pagesxml/loginPage.xml
 
 #定时任务配置
 #'index.job': '0 0 0 * * ?'
