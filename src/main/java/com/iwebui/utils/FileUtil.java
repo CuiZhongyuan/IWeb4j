@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author lgl
  */
-public class FileUtils {
+public class FileUtil {
 
     public static void uploadFile(String filePath, byte[] data) {
         String rootpath = new File(".").getAbsolutePath();

@@ -32,9 +32,9 @@ public class TestCase<i> extends BaseTest {
         //选择不同角色-这里选项平台角色
 //        ticketElement.button();
         //账号密码登录
-        ticketElement.login();
+//        ticketElement.login();
         //选择不同系统
-        ticketElement.enterRole();
+//        ticketElement.enterRole();
     }
     @Severity( SeverityLevel.BLOCKER)
     @Link("http://cstrip.12301100.com/")

@@ -1,9 +1,11 @@
 package com.iwebui.base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +26,10 @@ public class BaseChromeDriver {
         public WebDriver driver;
         public WebDriver startBrowser(BaseConfig baseConfig) {
             if (baseConfig.getBrowserType().equalsIgnoreCase("chrome")) {
-                // 系统变量设置谷歌驱动
+                System.out.println("启动新的配置文件谷歌chrome..");
+                //该工具会下载最新的ChromeDriver，默认下载路径会打印出来，找到后替换自己用的ChromeDriver版本即可，不用再配置ChromeDriver的读取路径
+//                WebDriverManager.chromedriver().setup();
+                // 配置文件路径设置谷歌驱动
                 System.setProperty("webdriver.chrome.driver", baseConfig.getChromeDriverPath());
                 /* 启动 WebDriver */
                 driver = new ChromeDriver();
@@ -32,7 +37,7 @@ public class BaseChromeDriver {
                  * 整体使用显示等来来处理页面元素及弹框加载处理，具体封装方法见BaseBrowser类中点击事件和输入文本事件处理
                  * */
                 // 隐式等待，作用域是全局---后续每个点击事件都用显示等待封装方法，这里不再使用隐式等待
-          driver.manage().timeouts().implicitlyWait(baseConfig.getImplicitlyWait(), TimeUnit.SECONDS);
+                driver.manage().timeouts().implicitlyWait(baseConfig.getImplicitlyWait(), TimeUnit.SECONDS);
                 // 页面加载等待，页面加载时间可以测试页面的响应时间，可用于页面性能分析，实际web自动化中不使用该方法
 //          driver.manage().timeouts().pageLoadTimeout(baseConfig.getPageLoadTimeout(),TimeUnit.SECONDS);
                 // JS 等待，
@@ -41,12 +46,7 @@ public class BaseChromeDriver {
                 // 系统变量设置谷歌驱动
                 System.setProperty("webdriver.genko.driver", baseConfig.getChromeDriverPath());
                 /* 启动 WebDriver */
-                driver = new ChromeDriver();
-            }else if (baseConfig.getBrowserType().equalsIgnoreCase("ie")){
-                // 系统变量设置谷歌驱动
-                System.setProperty("webdriver.ie.driver", baseConfig.getChromeDriverPath());
-                /* 启动 WebDriver */
-                driver = new ChromeDriver();
+                driver = new FirefoxDriver();
             } else {
                 System.out.println("暂不支持该类型浏览器，请检查配置");
                 //todo 往下自己可以创建

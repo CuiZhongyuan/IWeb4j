@@ -1,0 +1,11 @@
+<Pages>
+<!--定义一个page对象，对应web系统中某个页面-->
+    <Page keyword="登录页面">
+    <!-- 定义UIElement对象，对应该页面上的每个元素-->
+    <!--keyword:页面元素的关键字，by：定位元素的方法，value:选择器的值-->
+        <UIElement keyword="登录用户名" by="cssSelector" value="input[placeholder='请输入用户名或手机号']" operationType="sendKeys" ></UIElement>
+        <UIElement keyword="登录密码" by="cssSelector" value="input[placeholder='请输入密码']" operationType="sendKeys" ></UIElement>
+        <UIElement keyword="登入按钮" by="cssSelector" value="button>span" operationType="clickButton"></UIElement>
+    </Page>
+
+</Pages>

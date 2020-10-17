@@ -1,5 +1,6 @@
-import com.iwebui.dto.LoginDatas;
+import com.iwebui.dto.EasyPoiDatas;
 import com.iwebui.utils.EasyPoiUtil;
+import com.iwebui.utils.XmlParserUtil;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -30,11 +31,18 @@ public class TestCaseDemo {
     @Test
     public void loginTestCase() {
         String loginDatasPath = this.getClass().getClassLoader().getResource("loginTest.xlsx").getPath();
-        List<LoginDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,0,1, LoginDatas.class);
-        List<LoginDatas> collect = loginDatas.stream().filter(loginData -> loginData.getCode() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
-        for (LoginDatas loginData : collect){
+        List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,0,1, EasyPoiDatas.class);
+        List<EasyPoiDatas> collect = loginDatas.stream().filter(loginData -> loginData.getCode() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
+        for (EasyPoiDatas loginData : collect){
             System.out.println("["+loginData.getFlag()+loginData.getCode()+loginData.getPwd()+loginData.getDesc()+"]");
         }
+
+    }
+
+    @Test
+    public void xmlCase(){
+
+        XmlParserUtil xmlParserUtil = new XmlParserUtil();
 
     }
 }

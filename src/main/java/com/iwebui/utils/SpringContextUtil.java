@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
  * @author yss
  * @date 2020-07-03
  */
-public class SpringContextUtils {
+public class SpringContextUtil {
     private static ApplicationContext applicationContext;
 
     /**
@@ -26,7 +26,7 @@ public class SpringContextUtils {
      * @param applicationContext
      */
     public static void setApplicationContext(ApplicationContext applicationContext) {
-        SpringContextUtils.applicationContext = applicationContext;
+        SpringContextUtil.applicationContext = applicationContext;
     }
 
     /**

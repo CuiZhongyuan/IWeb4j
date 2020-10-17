@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 public class BaseConfig {
 
-    // 驱动存放路径 target/classes/chromedriver/chromedriver.exe，同样可以把其它浏览器驱动放在这里
+    // 驱动存放路径 target/classes/chromedriver/chromedriver.exe，同样可以把其它浏览器驱动放在这里（注意：chrome版本兼容问题这驱动是86.0.4240）
     private String chromeDriverPath = this.getClass().getClassLoader().getResource("chromedriver/chromedriver.exe").getPath();
     //浏览器类型
     private String browserType = "chrome";

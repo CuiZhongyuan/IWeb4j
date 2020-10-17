@@ -1,5 +1,6 @@
 package com.iwebui.testcase;
 
+import cn.hutool.http.server.HttpServerResponse;
 import com.iwebui.base.BaseTest;
 import com.iwebui.listener.TestFailListener;
 import com.iwebui.page.element.TicketElement;
@@ -9,6 +10,8 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 数据驱动示例--Excel数据源驱动测试示例

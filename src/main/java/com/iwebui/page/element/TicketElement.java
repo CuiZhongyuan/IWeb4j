@@ -1,23 +1,22 @@
 package com.iwebui.page.element;
 
 import com.iwebui.base.BaseBrowser;
-import com.iwebui.dto.LoginDatas;
+import com.iwebui.dto.EasyPoiDatas;
+import com.iwebui.dto.Page;
 import com.iwebui.listener.TestFailListener;
 import com.iwebui.page.data.CssData;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.page.data.TextData;
 import com.iwebui.page.data.YynCssData;
 import com.iwebui.utils.EasyPoiUtil;
+import com.iwebui.utils.UIElementUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
-import org.testng.asserts.SoftAssert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,7 +27,6 @@ import static org.openqa.selenium.Keys.ENTER;
  * @author czy
  * @date 2019/3/8
  */
-@Listeners( TestFailListener.class)
 @Slf4j
 public class TicketElement extends BaseBrowser {
     /**
@@ -132,30 +130,34 @@ public class TicketElement extends BaseBrowser {
      * 登录覆盖测试--execl数据源驱动示例
      */
     public void loginTestCase() {
-        String loginDatasPath = this.getClass().getClassLoader().getResource("loginTest.xlsx").getPath();
-        List<LoginDatas> loginDatas = EasyPoiUtil.importExcel("C:\\Users\\Administrator\\Desktop\\loginTest.xlsx",0,1, LoginDatas.class);
+        String loginDatasPath = "C:\\Users\\Administrator\\Desktop\\11.xls";
+        List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,1,1, EasyPoiDatas.class);
         //过滤Easypoi读取表格多出两行为空的数据
-        List<LoginDatas> collect = loginDatas.stream().filter(loginData -> loginData.getCode() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
-        for (LoginDatas loginData :collect ){
-            if (loginData.getFlag().equalsIgnoreCase("0")){
-                sendInput(YynCssData.NAME, loginData.getCode()==null?"":loginData.getCode());
-                sendInput(YynCssData.PWD,loginData.getPwd()==null?"":loginData.getPwd());
-                clickButton(YynCssData.CLICK);
+        List<EasyPoiDatas> loginDatasNotEmPty = loginDatas.stream().filter(loginData -> loginData.getCode() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
+        //新的集合存放新的测试数据和测试结果
+        List<EasyPoiDatas> collectS = new ArrayList<>();
+        for (EasyPoiDatas loginData :loginDatasNotEmPty ) {
+            try {
+                //由于EasyPoiUtil工具类对于空表格返回为null,sendKeys方法源码中不允许为null或0，这做下转换
+                UIElementUtil.sendInput("登录页面","登录用户名",driver,loginData.getCode() == null ? "" : loginData.getCode());
+                UIElementUtil.sendInput("登录页面","登录密码",driver,loginData.getPwd() == null ? "" : loginData.getPwd());
+                UIElementUtil.clickButton("登录页面","登入按钮",driver);
+                String getResponseTip = driver.findElement(YynCssData.TIPS).getText();
+                loginData.setActual(getResponseTip);
+            } catch (Exception e) {
+//                System.out.println("异常");
+                e.printStackTrace();
             }
-            if (loginData.getFlag().equalsIgnoreCase("1")){
-                System.out.println(loginData.getCode()==null?"":loginData.getCode());
-                sendInput(YynCssData.NAME, loginData.getCode()==null?"":loginData.getCode());
-                sendInput(YynCssData.PWD,loginData.getPwd()==null?"":loginData.getPwd());
-                String handle = driver.getWindowHandle();
-                clickButton(YynCssData.CLICK);
-                Set<String> handles = driver.getWindowHandles();
-                for (String h : handles){
-                    System.out.println(h);
-                }
-                String descTips = driver.getTitle();
-               Assert.assertEquals(descTips,loginData.getDesc());
-            }
-            System.out.println("flag:"+loginData.getFlag()+" code:"+loginData.getCode()+" pwd:"+loginData.getPwd()+" desc"+loginData.getDesc());
+            collectS.add(loginData);
+        }
+        if (collectS.size() == 0){
+            System.out.println("测试用例无数据，请查看");
+        }else {
+//        loginDatas.addAll(collectS);
+            //1.读取原始的excel文件  数据存入coll
+            //2.读取新的excel文件 执行业务 拼装数据 存入到 原始的coll
+            //3.将所有的coll 覆盖原excel文件，loginDatas可以保留原始记录并在原始记录下写入新的数据
+            EasyPoiUtil.exportExcel(collectS,"测试用例集","登录用例", EasyPoiDatas.class,loginDatasPath, true);
         }
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -43,7 +44,34 @@ public class EasyPoiUtil {
         defaultExport(list, pojoClass, fileName, response, exportParams);
     }
 
+    public static void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass, String fileName, boolean isCreateHeader) {
+        ExportParams exportParams = new ExportParams(title, sheetName);
+        exportParams.setCreateHeadRows(isCreateHeader);
+        exportParams.setStyle(EasyPoiExcelStyleUtil.class);
+        defaultExport(list, pojoClass, fileName, exportParams);
+    }
 
+    private static void defaultExport(List<?> list, Class<?> pojoClass, String fileName, ExportParams exportParams) {
+        Workbook workbook = ExcelExportUtil.exportExcel(exportParams, pojoClass, list);
+        if (workbook != null) {
+            downLoadExcel(fileName, workbook);
+        }
+    }
+    /**
+     * 功能描述：Excel导出
+     *
+     * @param fileName 文件名称
+     * @param workbook Excel对象
+     * @return
+     */
+    public static void downLoadExcel(String fileName, Workbook workbook) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            workbook.write(fos);
+        } catch (IOException e) {
+            System.out.println("文件打开异常，请确认是否已打开");
+        }
+    }
     /**
      * 功能描述：复杂导出Excel，包括文件名以及表名,不创建表头
      *
@@ -130,7 +158,7 @@ public class EasyPoiUtil {
      * 功能描述：根据文件路径来导入Excel
      *
      * @param filePath   文件路径
-     * @param titleRows  表标题的行数
+     * @param titleRows  表标题的行数--对应数据对象
      * @param headerRows 表头行数
      * @param pojoClass  Excel实体类
      * @return

@@ -26,7 +26,7 @@ import java.util.Map;
  *
  * @author lgl
  */
-public class JsonUtils {
+public class JsonUtil {
     private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
@@ -41,7 +41,7 @@ public class JsonUtils {
         OBJECT_MAPPER.registerModule(simpleModule).registerModule(javaTimeModule);
     }
 
-    private JsonUtils() {
+    private JsonUtil() {
     }
 
     public static ObjectMapper getInstance() {
