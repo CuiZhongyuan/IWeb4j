@@ -12,16 +12,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+
 
 @Slf4j
 public class UIElementUtil {
@@ -104,7 +101,8 @@ public class UIElementUtil {
      * @param value  选择器值
      */
     public static WebElement getVisibleElement(String by, String value,  WebDriver driver) {
-        wait = new WebDriverWait(driver,20);
+        int webDriverWait = (int) ReloadStaticConfig.getCommonYml("browser.webDriverWait");
+        wait = new WebDriverWait(driver,webDriverWait);
         By locator =null;
         WebElement element = null;
         if ("id".equalsIgnoreCase(by)){
@@ -159,7 +157,8 @@ public class UIElementUtil {
      * @param content 输入
      */
     public static WebElement clickPop(String pageKeyword, String uiElementKeyword, WebDriver driver, CharSequence... content) {
-        wait = new WebDriverWait(driver, 20);
+        int webDriverWait = (int) ReloadStaticConfig.getCommonYml("browser.webDriverWait");
+        wait = new WebDriverWait(driver, webDriverWait);
         try {
             String jsToBeExecute = "return document.readyState =='complete'";
             boolean isReady = (boolean) wait.until(ExpectedConditions.jsReturnsValue(jsToBeExecute));

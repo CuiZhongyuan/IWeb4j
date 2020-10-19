@@ -13,6 +13,7 @@ browser:
   chromeDriverPath: src/main/resources/chromedriver/chromedriver.exe
   browserType: chrome
   implicitlyWait: 10
+  webDriverWait: 20
 
 #定时任务配置
 #'index.job': '0 0 0 * * ?'

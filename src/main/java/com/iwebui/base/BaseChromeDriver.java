@@ -1,7 +1,6 @@
 package com.iwebui.base;
 
 import com.iwebui.utils.ReloadStaticConfig;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -27,19 +26,21 @@ public class BaseChromeDriver {
         public WebDriver driver;
         public WebDriver startBrowser() {
             String browserType = (String) ReloadStaticConfig.getCommonYml("browser.browserType");
+            String chromeDriverPath =  (String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath");
+            int implicitlyWait = (int) ReloadStaticConfig.getCommonYml("browser.implicitlyWait");
             if (browserType.equalsIgnoreCase("chrome")) {
                 System.out.println("启动新的配置文件谷歌chrome..");
                 //该工具会下载最新的ChromeDriver，默认下载路径会打印出来，找到后替换自己用的ChromeDriver版本即可，不用再配置ChromeDriver的读取路径
 //                WebDriverManager.chromedriver().setup();
                 // 配置文件路径设置谷歌驱动
-                System.setProperty("webdriver.chrome.driver", (String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath"));
+                System.setProperty("webdriver.chrome.driver",chromeDriverPath);
                 /* 启动 WebDriver */
                 driver = new ChromeDriver();
                 /**
                  * 整体使用显示等来来处理页面元素及弹框加载处理，具体封装方法见BaseBrowser类中点击事件和输入文本事件处理
                  * */
                 // 隐式等待，作用域是全局---后续每个点击事件都用显示等待封装方法，隐式等待不用也可以
-                driver.manage().timeouts().implicitlyWait((int) ReloadStaticConfig.getCommonYml("browser.implicitlyWait"), TimeUnit.SECONDS);
+                driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
                 // 页面加载等待，页面加载时间可以测试页面的响应时间，可用于页面性能分析，实际web自动化中不使用该方法
 //          driver.manage().timeouts().pageLoadTimeout(baseConfig.getPageLoadTimeout(),TimeUnit.SECONDS);
                 // JS 等待，
