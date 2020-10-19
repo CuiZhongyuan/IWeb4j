@@ -3,9 +3,7 @@ package com.iwebui.base;
 import com.iwebui.utils.WordartDisplayer;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 /**
  * 测试基类
@@ -42,7 +40,7 @@ public class BaseTest  {
      * 这里做多线程的处理
      *
      */
-    @BeforeTest(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void beforeTest() {
         /* 驱动配置 */
         baseDriver = new BaseChromeDriver();
@@ -51,7 +49,7 @@ public class BaseTest  {
     /**
      * 执行一个测试用例之后执行
      */
-    @AfterTest(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void afterTest() throws InterruptedException {
         // 驱动退出关闭浏览器
         baseDriver.closeBrowser();

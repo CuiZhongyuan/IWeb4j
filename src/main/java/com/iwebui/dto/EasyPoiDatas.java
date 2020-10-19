@@ -9,10 +9,10 @@ import lombok.ToString;
 @Getter
 @ToString
 public class EasyPoiDatas {
-    @Excel(name = "flag(是否是正向0是方向，1是正向)",orderNum = "1")
+    @Excel(name = "flag(0是反向，1是正向)",orderNum = "1")
     private String flag;
-    @Excel(name = "code(景区code作为登录账号)",orderNum = "2")
-    private String code;
+    @Excel(name = "name(登录账号)",orderNum = "2")
+    private String name;
     @Excel(name = "pwd(登录密码)",orderNum = "3")
     private String pwd;
     @Excel(name = "desc(期望提示语)",orderNum = "4")

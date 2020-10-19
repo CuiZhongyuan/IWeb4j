@@ -32,9 +32,9 @@ public class TestCaseDemo {
     public void loginTestCase() {
         String loginDatasPath = this.getClass().getClassLoader().getResource("loginTest.xlsx").getPath();
         List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,0,1, EasyPoiDatas.class);
-        List<EasyPoiDatas> collect = loginDatas.stream().filter(loginData -> loginData.getCode() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
+        List<EasyPoiDatas> collect = loginDatas.stream().filter(loginData -> loginData.getName() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
         for (EasyPoiDatas loginData : collect){
-            System.out.println("["+loginData.getFlag()+loginData.getCode()+loginData.getPwd()+loginData.getDesc()+"]");
+            System.out.println("["+loginData.getFlag()+loginData.getName()+loginData.getPwd()+loginData.getDesc()+"]");
         }
 
     }

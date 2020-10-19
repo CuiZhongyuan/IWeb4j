@@ -6,7 +6,8 @@
     <parameter name="测试人员" value="Coding测试" />
     <test name="User allure2" allow-return-values="true">
         <classes>
-            <class name="com.iwebui.testcase.LoginTestCase" />
+            <class name="com.iwebui.testcase.BaiduLoginCase" />
+            <class name="com.iwebui.testcase.JianShuSerchCase" />
         </classes>
     </test>
 </suite>

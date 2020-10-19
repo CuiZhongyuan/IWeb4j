@@ -180,7 +180,7 @@ public class UIElementUtil {
                 long time1 = DateUtils.getCurrentMillisecond();
                 WebElement buttonPopElement = getElementByKeyword(pageKeyword,uiElementKeyword,driver);
                 buttonPopElement.click();
-                log.info("点击弹框事件耗时：" + (DateUtils.getCurrentMillisecond() - time1) + "ms");
+                log.info("["+uiElementKeyword+"]该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
                 return buttonPopElement;
             }
         } catch (Exception e) {
@@ -199,7 +199,7 @@ public class UIElementUtil {
             long time1 = DateUtils.getCurrentMillisecond();
             WebElement buttonElement =getElementByKeyword(pageKeyword,uiElementKeyword,driver);
             buttonElement.click();
-            log.info("该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
+            log.info("["+uiElementKeyword+"]该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
             return buttonElement;
         }catch (Exception e) {
             System.out.println("================元素不存在或不可点击状态，请查看=================="+pageKeyword+"页面下的/"+uiElementKeyword+"该关键字对应的：value元素不存在");
