@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,23 +29,10 @@ public class UIElementUtil {
      * 显示等待
      */
     private static WebDriverWait wait;
-    public static Object getCommonYml(Object key){
-        Resource resource = new ClassPathResource("/application-dev.yml");
-        Properties properties = null;
-        try {
-            YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
-            yamlFactory.setResources(resource);
-            properties =  yamlFactory.getObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return properties.get(key);
-    }
     public static List<Page> pageDatas = new ArrayList<>();
     static {
         //通过yaml配置文件引入路径
-        String xmlpathconfig = (String) getCommonYml("pagexml.xmlpathconfig");
+        String xmlpathconfig = (String) ReloadStaticConfig.getCommonYml("pagexml.xmlpathconfig");
         lodePages(xmlpathconfig);
     }
     /**

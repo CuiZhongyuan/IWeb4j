@@ -1,5 +1,6 @@
 package com.iwebui.base;
 
+import com.iwebui.utils.ReloadStaticConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,27 +25,28 @@ public class BaseChromeDriver {
          * 启动本地 chrome
          */
         public WebDriver driver;
-        public WebDriver startBrowser(BaseConfig baseConfig) {
-            if (baseConfig.getBrowserType().equalsIgnoreCase("chrome")) {
+        public WebDriver startBrowser() {
+            String browserType = (String) ReloadStaticConfig.getCommonYml("browser.browserType");
+            if (browserType.equalsIgnoreCase("chrome")) {
                 System.out.println("启动新的配置文件谷歌chrome..");
                 //该工具会下载最新的ChromeDriver，默认下载路径会打印出来，找到后替换自己用的ChromeDriver版本即可，不用再配置ChromeDriver的读取路径
 //                WebDriverManager.chromedriver().setup();
                 // 配置文件路径设置谷歌驱动
-                System.setProperty("webdriver.chrome.driver", baseConfig.getChromeDriverPath());
+                System.setProperty("webdriver.chrome.driver", (String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath"));
                 /* 启动 WebDriver */
                 driver = new ChromeDriver();
                 /**
                  * 整体使用显示等来来处理页面元素及弹框加载处理，具体封装方法见BaseBrowser类中点击事件和输入文本事件处理
                  * */
-                // 隐式等待，作用域是全局---后续每个点击事件都用显示等待封装方法，这里不再使用隐式等待
-                driver.manage().timeouts().implicitlyWait(baseConfig.getImplicitlyWait(), TimeUnit.SECONDS);
+                // 隐式等待，作用域是全局---后续每个点击事件都用显示等待封装方法，隐式等待不用也可以
+                driver.manage().timeouts().implicitlyWait((int) ReloadStaticConfig.getCommonYml("browser.implicitlyWait"), TimeUnit.SECONDS);
                 // 页面加载等待，页面加载时间可以测试页面的响应时间，可用于页面性能分析，实际web自动化中不使用该方法
 //          driver.manage().timeouts().pageLoadTimeout(baseConfig.getPageLoadTimeout(),TimeUnit.SECONDS);
                 // JS 等待，
 //          driver.manage().timeouts().setScriptTimeout(baseConfig.getSetScriptTimeout(),TimeUnit.SECONDS);
-            }else if (baseConfig.getBrowserType().equalsIgnoreCase("firefox")){
+            }else if (browserType.equalsIgnoreCase("firefox")){
                 // 系统变量设置谷歌驱动
-                System.setProperty("webdriver.genko.driver", baseConfig.getChromeDriverPath());
+                System.setProperty("webdriver.genko.driver",(String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath"));
                 /* 启动 WebDriver */
                 driver = new FirefoxDriver();
             } else {

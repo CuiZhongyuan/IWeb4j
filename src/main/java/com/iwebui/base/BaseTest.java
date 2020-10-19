@@ -23,9 +23,6 @@ public class BaseTest  {
      * 对外暴露
      */
     public WebDriver driver;
-
-    //注入配置文件
-    BaseConfig baseConfig = new BaseConfig();
     /**
      * 执行一个测试套之前执行
      */
@@ -44,7 +41,7 @@ public class BaseTest  {
     public void beforeTest() {
         /* 驱动配置 */
         baseDriver = new BaseChromeDriver();
-        driver = baseDriver.startBrowser(baseConfig);
+        driver = baseDriver.startBrowser();
     }
     /**
      * 执行一个测试用例之后执行

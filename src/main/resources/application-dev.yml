@@ -9,6 +9,11 @@ logging:
 pagexml:
   xmlpathconfig: src/main/resources/pagesxml/loginPage.xml
 
+browser:
+  chromeDriverPath: src/main/resources/chromedriver/chromedriver.exe
+  browserType: chrome
+  implicitlyWait: 10
+
 #定时任务配置
 #'index.job': '0 0 0 * * ?'
 #'thirdOrderCancel.job': '0 0/60 * * * ?'
