@@ -19,6 +19,7 @@ public class AssertWebUtil {
 
         }catch (Exception e){
             urlContains = false;
+            SaveFailureScreenUtil.saveFailureScreenShot(driver);
         }
         Assert.assertTrue(urlContains);
     }
@@ -33,6 +34,7 @@ public class AssertWebUtil {
             wait.until(ExpectedConditions.textToBePresentInElement(element,text));
         }catch (Exception e){
             textToBePresentInElement = false;
+            SaveFailureScreenUtil.saveFailureScreenShot(driver);
         }
         Assert.assertTrue(textToBePresentInElement);
     }
@@ -46,6 +48,7 @@ public class AssertWebUtil {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         }catch (Exception e){
             elementToBeClickable = false;
+            SaveFailureScreenUtil.saveFailureScreenShot(driver);
         }
         Assert.assertTrue(elementToBeClickable);
     }

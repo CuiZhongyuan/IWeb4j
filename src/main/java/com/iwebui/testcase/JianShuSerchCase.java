@@ -17,7 +17,7 @@ public class JianShuSerchCase extends BaseTest {
     @Severity( SeverityLevel.NORMAL)
     @Description("简书搜索测试示例")
     @Test
-    public void login(){
+    public void jianshuSearch(){
         //初始化ticketElement，获取驱动
         caseElement = new JianShuCaseElement(driver);
         caseElement.searchJianshu();

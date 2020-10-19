@@ -15,7 +15,7 @@ public class BaiduLoginCase extends BaseTest {
     @Severity( SeverityLevel.NORMAL)
     @Description("百度登录测试示例")
     @Test
-    public void login(){
+    public void baiduLogin(){
         //初始化ticketElement，获取驱动
         baiDuCaseElement = new BaiDuCaseElement(driver);
         baiDuCaseElement.serchBaidu();

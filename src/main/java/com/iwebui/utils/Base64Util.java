@@ -11,7 +11,7 @@ import java.util.Base64;
 /**
  * 此工具类的base64是基于JDK1.8实现的，jdk必须为1.8以上
  *
- * @author lgl
+ * @author czy
  */
 public class Base64Util {
     public static final String UTF8 = "UTF-8";

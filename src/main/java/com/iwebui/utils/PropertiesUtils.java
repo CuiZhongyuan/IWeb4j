@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * Properties属性文件工具类
  *
- * @author lgl
+ * @author czy
  */
 public class PropertiesUtils {
 

@@ -3,10 +3,12 @@ package com.iwebui.page.element;
 import com.iwebui.base.BaseBrowser;
 import com.iwebui.dto.EasyPoiDatas;
 import com.iwebui.page.data.AccountData;
+import com.iwebui.utils.AssertWebUtil;
 import com.iwebui.utils.EasyPoiUtil;
 import com.iwebui.utils.UIElementUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class BaiDuCaseElement extends BaseBrowser {
                 UIElementUtil.clickButton("百度登录","登录按钮",driver);
                 String getResponseTip = driver.findElement(AccountData.TIPS).getText();
                 loginData.setActual(getResponseTip);
+                WebElement element = UIElementUtil.getElementByKeyword("百度登录","登录按钮",driver);
+                AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * 字符串工具类
  *
- * @author lgl
+ * @author czy
  */
 public class StrUtils extends StringUtils {
     private static final String SEPARATOR_OF_MAC = "-";

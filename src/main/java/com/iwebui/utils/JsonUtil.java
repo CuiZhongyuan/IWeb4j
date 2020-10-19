@@ -24,7 +24,7 @@ import java.util.Map;
  * json工具类
  * 数据错误统一抛出new IllegalArgumentException
  *
- * @author lgl
+ * @author czy
  */
 public class JsonUtil {
     private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();

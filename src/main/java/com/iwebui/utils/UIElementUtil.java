@@ -145,6 +145,7 @@ public class UIElementUtil {
         }catch (Exception e){
             if (e instanceof TimeoutException){
                 System.out.println("根据by：["+by+"],value["+value+"]定位超时");
+                SaveFailureScreenUtil.saveFailureScreenShot(driver);
             }else {
                 e.printStackTrace();
             }

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 文件操作工具类
  *
- * @author lgl
+ * @author czy
  */
 public class FileUtil {
 
