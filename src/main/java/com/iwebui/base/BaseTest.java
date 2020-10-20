@@ -1,6 +1,5 @@
 package com.iwebui.base;
 
-import com.iwebui.utils.WordartDisplayer;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;

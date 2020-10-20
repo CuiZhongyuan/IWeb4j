@@ -29,7 +29,7 @@ public class UIElementUtil {
     public static List<Page> pageDatas = new ArrayList<>();
     static {
         //通过yaml配置文件引入路径
-        String xmlpathconfig = (String) ReloadStaticConfig.getCommonYml("pagexml.xmlpathconfig");
+        String xmlpathconfig = (String) LoadStaticConfigUtil.getCommonYml("pagexml.xmlpathconfig");
         lodePages(xmlpathconfig);
     }
     /**
@@ -101,7 +101,7 @@ public class UIElementUtil {
      * @param value  选择器值
      */
     public static WebElement getVisibleElement(String by, String value,  WebDriver driver) {
-        int webDriverWait = (int) ReloadStaticConfig.getCommonYml("browser.webDriverWait");
+        int webDriverWait = (int) LoadStaticConfigUtil.getCommonYml("browser.webDriverWait");
         wait = new WebDriverWait(driver,webDriverWait);
         By locator =null;
         WebElement element = null;
@@ -157,7 +157,7 @@ public class UIElementUtil {
      * @param content 输入
      */
     public static WebElement clickPop(String pageKeyword, String uiElementKeyword, WebDriver driver, CharSequence... content) {
-        int webDriverWait = (int) ReloadStaticConfig.getCommonYml("browser.webDriverWait");
+        int webDriverWait = (int) LoadStaticConfigUtil.getCommonYml("browser.webDriverWait");
         wait = new WebDriverWait(driver, webDriverWait);
         try {
             String jsToBeExecute = "return document.readyState =='complete'";

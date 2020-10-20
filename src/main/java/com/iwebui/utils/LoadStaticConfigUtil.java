@@ -6,7 +6,7 @@ import org.springframework.core.io.Resource;
 
 import java.util.Properties;
 
-public class ReloadStaticConfig {
+public class LoadStaticConfigUtil {
     public static Object getCommonYml(Object key){
         Resource resource = new ClassPathResource("/application-dev.yml");
         Properties properties = null;

@@ -1,6 +1,6 @@
 package com.iwebui.base;
 
-import com.iwebui.utils.ReloadStaticConfig;
+import com.iwebui.utils.LoadStaticConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -25,9 +25,9 @@ public class BaseChromeDriver {
          */
         public WebDriver driver;
         public WebDriver startBrowser() {
-            String browserType = (String) ReloadStaticConfig.getCommonYml("browser.browserType");
-            String chromeDriverPath =  (String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath");
-            int implicitlyWait = (int) ReloadStaticConfig.getCommonYml("browser.implicitlyWait");
+            String browserType = (String) LoadStaticConfigUtil.getCommonYml("browser.browserType");
+            String chromeDriverPath =  (String) LoadStaticConfigUtil.getCommonYml("browser.chromeDriverPath");
+            int implicitlyWait = (int) LoadStaticConfigUtil.getCommonYml("browser.implicitlyWait");
             if (browserType.equalsIgnoreCase("chrome")) {
                 System.out.println("启动新的配置文件谷歌chrome..");
                 //该工具会下载最新的ChromeDriver，默认下载路径会打印出来，找到后替换自己用的ChromeDriver版本即可，不用再配置ChromeDriver的读取路径
@@ -47,7 +47,7 @@ public class BaseChromeDriver {
 //          driver.manage().timeouts().setScriptTimeout(baseConfig.getSetScriptTimeout(),TimeUnit.SECONDS);
             }else if (browserType.equalsIgnoreCase("firefox")){
                 // 系统变量设置谷歌驱动
-                System.setProperty("webdriver.genko.driver",(String) ReloadStaticConfig.getCommonYml("browser.chromeDriverPath"));
+                System.setProperty("webdriver.genko.driver",(String) LoadStaticConfigUtil.getCommonYml("browser.chromeDriverPath"));
                 /* 启动 WebDriver */
                 driver = new FirefoxDriver();
             } else {

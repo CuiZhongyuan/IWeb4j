@@ -1,6 +1,8 @@
 import com.iwebui.dto.EasyPoiDatas;
 import com.iwebui.utils.EasyPoiUtil;
 import com.iwebui.utils.XmlParserUtil;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -36,13 +38,37 @@ public class TestCaseDemo {
         for (EasyPoiDatas loginData : collect){
             System.out.println("["+loginData.getFlag()+loginData.getName()+loginData.getPwd()+loginData.getDesc()+"]");
         }
-
     }
 
     @Test
     public void xmlCase(){
-
         XmlParserUtil xmlParserUtil = new XmlParserUtil();
-
     }
+    /**
+     * 测试接口测试响应数据添加至allure的body里
+     * */
+    @Test
+    @Story("测试接口测试响应数据添加至allure的test body里")
+    public void test1() {
+        try {
+            String url = "www.baidu.com";
+            String header = "accept: application/json";
+            String body = "{t: 1585926656064}";
+            String response = "{\"status\":200,\"message\":\"success\",\"data\":{\"session\":\"e6530619f00b6e27f58d5c251a9c7b07\",\"id\":\"bc5a637f976db9779cc8ec56dbc5f418\",\"challenge\":\"e6530619f00b6e27f58d5c251a9c7b07\",\"provider\":\"gt\",\"failback\":false},\"timestamp\":\"1585926656203\",\"version\":4}";
+            caseStep(url,header,body,response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //测试步骤
+    public void caseStep(String url, String header, String body, String response)
+    {
+        Allure.addAttachment("请求地址", url);
+        Allure.addAttachment("请求头", header);
+        Allure.addAttachment("请求体", body);
+        Allure.addAttachment("请求响应", response);
+    }
+
+
 }

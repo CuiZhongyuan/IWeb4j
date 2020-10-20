@@ -3,15 +3,19 @@ package com.iwebui.page.element;
 import com.iwebui.base.BaseBrowser;
 import com.iwebui.dto.EasyPoiDatas;
 import com.iwebui.page.data.AccountData;
-import com.iwebui.utils.AssertWebUtil;
-import com.iwebui.utils.EasyPoiUtil;
-import com.iwebui.utils.UIElementUtil;
+import com.iwebui.utils.*;
+import io.qameta.allure.Allure;
+import io.qameta.allure.model.Status;
+import io.qameta.allure.util.ResultsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -36,14 +40,13 @@ public class BaiDuCaseElement extends BaseBrowser {
     public void loginCase() {
         UIElementUtil.clickButton("百度登录","点击右上角登录按钮",driver);
         UIElementUtil.clickButton("百度登录","点击账号密码登录按钮",driver);
-        String loginDatasPath = "src/main/resources/pagesxml/baidulogin.xls";
+        String loginDatasPath = (String) LoadStaticConfigUtil.getCommonYml( "testcase.cases");
         List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,1,1, EasyPoiDatas.class);
         //过滤Easypoi读取表格多出两行为空的数据
         List<EasyPoiDatas> loginDatasNotEmPty = loginDatas.stream().filter(loginData -> loginData.getName() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
         //新的集合存放新的测试数据和测试结果
         List<EasyPoiDatas> collectS = new ArrayList<>();
         for (EasyPoiDatas loginData :loginDatasNotEmPty ) {
-            try {
                 //由于EasyPoiUtil工具类对于空表格返回为null,sendKeys方法源码中不允许为null或0，这做下转换
                 UIElementUtil.sendInput("百度登录","登录账号",driver,loginData.getName()==null? "" : loginData.getName());
                 UIElementUtil.sendInput("百度登录","登录密码",driver,loginData.getPwd()==null? "" : loginData.getPwd());
@@ -52,10 +55,8 @@ public class BaiDuCaseElement extends BaseBrowser {
                 loginData.setActual(getResponseTip);
                 WebElement element = UIElementUtil.getElementByKeyword("百度登录","登录按钮",driver);
                 AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            collectS.add(loginData);
+//            Assert.assertEquals(element,"期望结果");
+                collectS.add(loginData);
         }
         if (collectS.size() == 0){
             System.out.println("测试用例无数据，请查看");

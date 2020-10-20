@@ -9,6 +9,9 @@ logging:
 pagexml:
   xmlpathconfig: src/main/resources/pagesxml/loginPage.xml
 
+testcase:
+    cases: src/main/resources/pagesxml/baidulogin.xls
+
 browser:
   chromeDriverPath: src/main/resources/chromedriver/chromedriver.exe
   browserType: chrome
