@@ -1,5 +1,7 @@
-import com.iwebui.dto.EasyPoiDatas;
+import com.iwebui.dto.LoginCaseDto;
+import com.iwebui.dto.LoginUrlDto;
 import com.iwebui.utils.EasyPoiUtil;
+import com.iwebui.utils.ExcelTestResultOutputUtil;
 import com.iwebui.utils.XmlParserUtil;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Story;
@@ -33,9 +35,9 @@ public class TestCaseDemo {
     @Test
     public void loginTestCase() {
         String loginDatasPath = this.getClass().getClassLoader().getResource("loginTest.xlsx").getPath();
-        List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,0,1, EasyPoiDatas.class);
-        List<EasyPoiDatas> collect = loginDatas.stream().filter(loginData -> loginData.getName() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
-        for (EasyPoiDatas loginData : collect){
+        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,0,1, LoginCaseDto.class);
+        List<LoginCaseDto> collect = loginDatas.stream().filter(loginData -> loginData.getName() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
+        for (LoginCaseDto loginData : collect){
             System.out.println("["+loginData.getFlag()+loginData.getName()+loginData.getPwd()+loginData.getDesc()+"]");
         }
     }
@@ -70,5 +72,22 @@ public class TestCaseDemo {
         Allure.addAttachment("请求响应", response);
     }
 
+    @Test
+    public void case3(){
+        String path = "C:\\Users\\Administrator\\Desktop\\11.xls";
+        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcels(path,0,1,1, LoginCaseDto.class);
+        List<LoginUrlDto> sheet1 = EasyPoiUtil.importExcels(path,1,1,1, LoginUrlDto.class);
+        for (LoginCaseDto urlid : loginDatas){
+            String id =  urlid.getUrlid();
+            if (id.equalsIgnoreCase("1")) {
+                for (LoginUrlDto url : sheet1) {
+                    if (url.getId().equalsIgnoreCase("1")) {
+                        urlid.setUrlpath(url.getUrl());
+                    }
+                }
+            }
+        }
+        ExcelTestResultOutputUtil.exportSheet(loginDatas,sheet1);
+    }
 
 }

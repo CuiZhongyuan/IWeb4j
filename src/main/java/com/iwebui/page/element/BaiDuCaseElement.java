@@ -1,22 +1,14 @@
 package com.iwebui.page.element;
 
 import com.iwebui.base.BaseBrowser;
-import com.iwebui.dto.EasyPoiDatas;
+import com.iwebui.dto.LoginCaseDto;
+import com.iwebui.dto.LoginUrlDto;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.utils.*;
-import io.qameta.allure.Allure;
-import io.qameta.allure.model.Status;
-import io.qameta.allure.util.ResultsUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class BaiDuCaseElement extends BaseBrowser {
@@ -36,34 +28,34 @@ public class BaiDuCaseElement extends BaseBrowser {
         log.info("开始进入被测页面");
         enterPage(AccountData.BAIDUURL);
     }
-
+    /**
+     * 进行读取报个测试用例进行测试并批量写入实际测试结果，和多sheet表之间的关联
+     */
     public void loginCase() {
         UIElementUtil.clickButton("百度登录","点击右上角登录按钮",driver);
         UIElementUtil.clickButton("百度登录","点击账号密码登录按钮",driver);
-        String loginDatasPath = (String) LoadStaticConfigUtil.getCommonYml( "testcase.cases");
-        List<EasyPoiDatas> loginDatas = EasyPoiUtil.importExcel(loginDatasPath,1,1, EasyPoiDatas.class);
-        //过滤Easypoi读取表格多出两行为空的数据
-        List<EasyPoiDatas> loginDatasNotEmPty = loginDatas.stream().filter(loginData -> loginData.getName() != null || loginData.getDesc() != null || loginData.getFlag() != null || loginData.getPwd() != null).collect(Collectors.toList());
-        //新的集合存放新的测试数据和测试结果
-        List<EasyPoiDatas> collectS = new ArrayList<>();
-        for (EasyPoiDatas loginData :loginDatasNotEmPty ) {
-                //由于EasyPoiUtil工具类对于空表格返回为null,sendKeys方法源码中不允许为null或0，这做下转换
-                UIElementUtil.sendInput("百度登录","登录账号",driver,loginData.getName()==null? "" : loginData.getName());
-                UIElementUtil.sendInput("百度登录","登录密码",driver,loginData.getPwd()==null? "" : loginData.getPwd());
-                UIElementUtil.clickButton("百度登录","登录按钮",driver);
-                String getResponseTip = driver.findElement(AccountData.TIPS).getText();
-                loginData.setActual(getResponseTip);
-                WebElement element = UIElementUtil.getElementByKeyword("百度登录","登录按钮",driver);
-                AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
-//            Assert.assertEquals(element,"期望结果");
-                collectS.add(loginData);
+        String excelCasePath = (String) LoadStaticConfigUtil.getCommonYml( "testcaseexcel.cases");
+        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcels(excelCasePath,0,1,1, LoginCaseDto.class);
+        List<LoginUrlDto> urlDatas = EasyPoiUtil.importExcels(excelCasePath,1,1,1, LoginUrlDto.class);
+        for (LoginCaseDto loginData : loginDatas ) {
+            if (loginData.getUrlid().equalsIgnoreCase("1")){
+                for (LoginUrlDto urlDto : urlDatas){
+                    if (urlDto.getId().equalsIgnoreCase("1")){
+                        loginData.setUrlpath(urlDto.getUrl());
+                        System.out.println("被测访问URL路径：" +urlDto.getUrl());
+                    }
+                }
+            }
+            //由于EasyPoiUtil工具类对于空表格返回为null,sendKeys方法源码中不允许为null或0，这做下转换
+            UIElementUtil.sendInput("百度登录","登录账号",driver,loginData.getName()==null? "" : loginData.getName());
+            UIElementUtil.sendInput("百度登录","登录密码",driver,loginData.getPwd()==null? "" : loginData.getPwd());
+            UIElementUtil.clickButton("百度登录","登录按钮",driver);
+            String getResponseTip = driver.findElement(AccountData.TIPS).getText();
+            loginData.setActual(getResponseTip);
+            WebElement element = UIElementUtil.getElementByKeyword("百度登录","登录按钮",driver);
+            AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
         }
-        if (collectS.size() == 0){
-            System.out.println("测试用例无数据，请查看");
-        }else {
-            //3.将所有实际获取结果写入实际结果中
-            EasyPoiUtil.exportExcel(collectS,"测试用例集","登录用例", EasyPoiDatas.class,loginDatasPath, true);
-        }
+        ExcelTestResultOutputUtil.exportSheet(loginDatas,urlDatas);
     }
 
 }

@@ -18,5 +18,4 @@ public class AccountData {
     public static final String BAIDUURL = "https://www.baidu.com/";
     //登录提示语
     public static final By TIPS = By.cssSelector("#TANGRAM__PSP_11__error");
-
 }
