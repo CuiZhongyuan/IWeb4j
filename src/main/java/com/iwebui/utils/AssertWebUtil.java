@@ -1,22 +1,13 @@
 package com.iwebui.utils;
 
 import io.qameta.allure.Allure;
-import io.qameta.allure.AllureLifecycle;
-import io.qameta.allure.model.Parameter;
 import io.qameta.allure.model.Status;
-import io.qameta.allure.model.StepResult;
-import io.qameta.allure.model.TestResult;
-import io.qameta.allure.util.ExceptionUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
-
-
-import static io.qameta.allure.aspects.StepsAspects.getLifecycle;
-import static io.qameta.allure.util.ResultsUtils.*;
 
 @Listeners(com.iwebui.listener.AssertListener.class)
 public class AssertWebUtil {
@@ -49,11 +40,10 @@ public class AssertWebUtil {
             //allure异常截图
             SaveFailureScreenUtil.saveFailureScreenShot(driver);
             //获取异常信息后添加至allure的test body中【异常信息封装成一个集合，这里需要转成String类型】
-            Allure.addAttachment("异常信息打印：",RewriteAssertUtil.errors.toString());
+            Allure.addAttachment("异常信息打印：", AssertRewriteUtil.errors.toString());
         }
-        RewriteAssertUtil.assertTrue(textToBePresentInElement);
-        System.out.println(RewriteAssertUtil.errors);
-
+        AssertRewriteUtil.assertTrue(textToBePresentInElement);
+        System.out.println(AssertRewriteUtil.errors);
     }
     /**
      *断言页面指定元素是否可点击

@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 @Slf4j
-public class RewriteAssertUtil {
+public class AssertRewriteUtil {
     public static boolean flag = true;
     public static List<Error> errors = new ArrayList<>();
 

@@ -1,6 +1,6 @@
 package com.iwebui.listener;
 
-import com.iwebui.utils.RewriteAssertUtil;
+import com.iwebui.utils.AssertRewriteUtil;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -14,8 +14,8 @@ public class AssertListener extends TestListenerAdapter {
      */
         @Override
         public void onTestStart(ITestResult result){
-            RewriteAssertUtil.flag=true;
-            RewriteAssertUtil.errors.clear();
+            AssertRewriteUtil.flag=true;
+            AssertRewriteUtil.errors.clear();
         }
         @Override
         public void onTestFailure(ITestResult tr){
@@ -31,14 +31,14 @@ public class AssertListener extends TestListenerAdapter {
         }
         private  int index=0;
         private void handleAssertion(ITestResult tr){
-            if(!RewriteAssertUtil.flag){
+            if(!AssertRewriteUtil.flag){
                 Throwable throwable = tr.getThrowable();
                 if(throwable==null){
                     throwable = new Throwable();
                 }
                 StackTraceElement[] traces = throwable.getStackTrace();
                 StackTraceElement[] alltrace = new StackTraceElement[0];
-                for (Error e : RewriteAssertUtil.errors) {
+                for (Error e : AssertRewriteUtil.errors) {
                     StackTraceElement[] errorTraces = e.getStackTrace();
                     StackTraceElement[] et = this.getKeyStackTrace(tr, errorTraces);
                     StackTraceElement[] message = new StackTraceElement[]{new StackTraceElement("message : "+e.getMessage()+" in method : ", tr.getMethod().getMethodName(), tr.getTestClass().getRealClass().getSimpleName(), index)};
@@ -54,8 +54,8 @@ public class AssertListener extends TestListenerAdapter {
 
                 throwable.setStackTrace(alltrace);
                 tr.setThrowable(throwable);
-                RewriteAssertUtil.flag = true;
-                RewriteAssertUtil.errors.clear();
+                AssertRewriteUtil.flag = true;
+                AssertRewriteUtil.errors.clear();
                 tr.setStatus(ITestResult.FAILURE);
             }
         }

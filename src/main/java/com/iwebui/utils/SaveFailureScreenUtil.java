@@ -10,7 +10,7 @@ import java.io.ByteArrayInputStream;
 
 public class SaveFailureScreenUtil {
     /**
-     * allure截图工具
+     * allure报个截图方法
      *
      * @author czy
      */
