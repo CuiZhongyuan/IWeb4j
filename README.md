@@ -3,9 +3,9 @@
 包目录说明
 - base包：负责存放公用的操作方法
 - dto包：存放数据实体对象，对应excel表头字段或数据库字段
+- listener包: testng监听类
 - page包：页面元素操作和执行测试数据
 - testcase包:业务逻辑用例编写
-- listener包:allure报告生成监听器异常截图
 - utils包:工具类
 
 # IWeb4j 项目思想
