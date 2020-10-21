@@ -6,18 +6,20 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.excel.export.ExcelExportService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
+
+import static cn.afterturn.easypoi.excel.ExcelExportUtil.USE_SXSSF_LIMIT;
 
 /**
  * @Description: Excel文件导入导出Util(EasyPoi)
@@ -153,7 +155,6 @@ public class EasyPoiUtil {
         }
     }
 
-
     /**
      * 功能描述：根据文件路径来导入Excel
      *
@@ -178,7 +179,6 @@ public class EasyPoiUtil {
             throw new RuntimeException("模板不能为空");
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return list;
     }
@@ -206,9 +206,60 @@ public class EasyPoiUtil {
             throw new RuntimeException("excel文件不能为空");
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
-
         }
         return list;
+    }
+
+    /**
+     * 功能描述：根据接收的Excel文件来导入多个sheet,根据索引可返回一个集合
+     * @param filePath   导入文件路径
+     * @param sheetIndex  导入sheet索引
+     * @param titleRows  表标题的行数
+     * @param headerRows 表头行数
+     * @param pojoClass  Excel实体类
+     * @return
+     */
+    public static <T> List<T> importExcels(String filePath,int sheetIndex,Integer titleRows, Integer headerRows, Class<T> pojoClass) {
+        // 根据file得到Workbook,主要是要根据这个对象获取,传过来的excel有几个sheet页
+        ImportParams params = new ImportParams();
+        // 第几个sheet页
+        params.setStartSheetIndex(sheetIndex);
+        params.setTitleRows(titleRows);
+        params.setHeadRows(headerRows);
+        List<T> list = null;
+        try {
+            list = ExcelImportUtil.importExcel(new File(filePath), pojoClass, params);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("模板不能为空");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     * 功能描述：根据接收的Excel文件来导入多个sheet,根据索引可返回一个集合
+     * @param list   实体对象集合
+     * @param type  表格类型
+     * @return
+     */
+    public static Workbook exportExcel(List<Map<String, Object>> list, ExcelType type) {
+        Workbook workbook = getWorkbook(type, 0);
+        Iterator var3 = list.iterator();
+
+        while(var3.hasNext()) {
+            Map<String, Object> map = (Map)var3.next();
+            ExcelExportService service = new ExcelExportService();
+            service.createSheet(workbook, (ExportParams)map.get("title"), (Class)map.get("entity"), (Collection)map.get("data"));
+        }
+        return workbook;
+    }
+    private static Workbook getWorkbook(ExcelType type, int size) {
+        if (ExcelType.HSSF.equals(type)) {
+            return new HSSFWorkbook();
+        } else {
+            return (Workbook)(size < USE_SXSSF_LIMIT ? new XSSFWorkbook() : new SXSSFWorkbook());
+        }
     }
 
 
