@@ -28,3 +28,7 @@ log4j2| 日志工具|记录系统日志
 selenium| 通过WebDriver API 操作页面|模拟真实用户操作
 ...| ...|...
 
+# EXCEL数据驱动使用easypoi实现
+- easypoi注解说明
+![](https://upload-images.jianshu.io/upload_images/16753854-65458befe4d5b7e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
