@@ -11,9 +11,9 @@ import org.springframework.context.ApplicationContext;
  */
 @EnableConfigurationProperties
 @SpringBootApplication
-public class IWebUiApplication {
+public class IWeb4jApplication {
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(IWebUiApplication.class, args);
+        ApplicationContext context = SpringApplication.run(IWeb4jApplication.class, args);
         SpringContextUtil.setApplicationContext(context);
     }
 }
