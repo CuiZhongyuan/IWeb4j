@@ -1,4 +1,4 @@
-package com.iwebui.page.element;
+package com.iwebui.page.easypoihandle;
 
 import com.iwebui.base.BaseBrowser;
 import com.iwebui.page.data.AccountData;
@@ -7,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 
 @Slf4j
-public class JianShuCaseElement extends BaseBrowser {
+public class JianShuCaseEasypoiHandle extends BaseBrowser {
     /**
      * 构造器 1
      *
      * @param driver 驱动
      */
-    public JianShuCaseElement(WebDriver driver) {
+    public JianShuCaseEasypoiHandle(WebDriver driver) {
         super(driver);
     }
     /**

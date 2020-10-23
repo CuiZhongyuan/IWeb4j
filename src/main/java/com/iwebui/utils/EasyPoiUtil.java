@@ -219,7 +219,7 @@ public class EasyPoiUtil {
      * @param pojoClass  Excel实体类
      * @return
      */
-    public static <T> List<T> importExcels(String filePath,int sheetIndex,Integer titleRows, Integer headerRows, Class<T> pojoClass) {
+    public static <T> List<T> importExcel(String filePath,int sheetIndex,Integer titleRows, Integer headerRows, Class<T> pojoClass) {
         // 根据file得到Workbook,主要是要根据这个对象获取,传过来的excel有几个sheet页
         ImportParams params = new ImportParams();
         // 第几个sheet页

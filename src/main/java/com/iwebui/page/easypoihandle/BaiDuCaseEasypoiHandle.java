@@ -1,4 +1,4 @@
-package com.iwebui.page.element;
+package com.iwebui.page.easypoihandle;
 
 import com.iwebui.base.BaseBrowser;
 import com.iwebui.dto.LoginCaseDto;
@@ -11,13 +11,13 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 @Slf4j
-public class BaiDuCaseElement extends BaseBrowser {
+public class BaiDuCaseEasypoiHandle extends BaseBrowser {
     /**
      * 构造器 1
      *
      * @param driver 驱动
      */
-    public BaiDuCaseElement(WebDriver driver) {
+    public BaiDuCaseEasypoiHandle(WebDriver driver) {
         super(driver);
     }
 
@@ -35,8 +35,8 @@ public class BaiDuCaseElement extends BaseBrowser {
         UIElementUtil.clickButton("百度登录","点击右上角登录按钮",driver);
         UIElementUtil.clickButton("百度登录","点击账号密码登录按钮",driver);
         String excelCasePath = (String) LoadStaticConfigUtil.getCommonYml( "testcaseexcel.cases");
-        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcels(excelCasePath,0,1,1, LoginCaseDto.class);
-        List<LoginUrlDto> urlDatas = EasyPoiUtil.importExcels(excelCasePath,1,1,1, LoginUrlDto.class);
+        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcel(excelCasePath,0,1,1, LoginCaseDto.class);
+        List<LoginUrlDto> urlDatas = EasyPoiUtil.importExcel(excelCasePath,1,1,1, LoginUrlDto.class);
         for (LoginCaseDto loginData : loginDatas ) {
             if (loginData.getUrlid().equalsIgnoreCase("1")){
                 for (LoginUrlDto urlDto : urlDatas){
