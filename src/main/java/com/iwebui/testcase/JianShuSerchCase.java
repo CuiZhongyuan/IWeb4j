@@ -1,7 +1,7 @@
 package com.iwebui.testcase;
 
 import com.iwebui.base.BaseTest;
-import com.iwebui.page.element.JianShuCaseElement;
+import com.iwebui.page.easypoihandle.JianShuCaseEasypoiHandle;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -12,14 +12,14 @@ import org.testng.annotations.Test;
  * */
 public class JianShuSerchCase extends BaseTest {
 
-    private JianShuCaseElement caseElement;
+    private JianShuCaseEasypoiHandle caseElement;
     //进入被测网页
     @Severity( SeverityLevel.NORMAL)
     @Description("简书搜索测试示例")
     @Test
     public void jianshuSearch(){
         //初始化ticketElement，获取驱动
-        caseElement = new JianShuCaseElement(driver);
+        caseElement = new JianShuCaseEasypoiHandle(driver);
         caseElement.searchJianshu();
         caseElement.jianshu();
     }
