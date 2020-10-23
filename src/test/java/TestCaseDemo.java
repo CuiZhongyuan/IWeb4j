@@ -5,11 +5,13 @@ import com.iwebui.utils.ExcelTestResultOutputUtil;
 import com.iwebui.utils.XmlParserUtil;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Story;
+import org.springframework.stereotype.Component;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class TestCaseDemo {
     //推荐使用
     @Test
@@ -75,8 +77,8 @@ public class TestCaseDemo {
     @Test
     public void case3(){
         String path = "C:\\Users\\Administrator\\Desktop\\11.xls";
-        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcels(path,0,1,1, LoginCaseDto.class);
-        List<LoginUrlDto> sheet1 = EasyPoiUtil.importExcels(path,1,1,1, LoginUrlDto.class);
+        List<LoginCaseDto> loginDatas = EasyPoiUtil.importExcel(path,0,1,1, LoginCaseDto.class);
+        List<LoginUrlDto> sheet1 = EasyPoiUtil.importExcel(path,1,1,1, LoginUrlDto.class);
         for (LoginCaseDto urlid : loginDatas){
             String id =  urlid.getUrlid();
             if (id.equalsIgnoreCase("1")) {
@@ -89,5 +91,6 @@ public class TestCaseDemo {
         }
         ExcelTestResultOutputUtil.exportSheet(loginDatas,sheet1);
     }
+
 
 }

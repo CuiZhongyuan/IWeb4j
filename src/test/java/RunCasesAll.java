@@ -1,8 +1,4 @@
-
 import com.iwebui.utils.BaseTestngInit;
-
-import io.qameta.allure.Allure;
-import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 public class RunCasesAll {
