@@ -33,3 +33,16 @@ selenium| 通过WebDriver API 操作页面|模拟真实用户操作
 - easypoi注解说明
 ![](https://upload-images.jianshu.io/upload_images/16753854-65458befe4d5b7e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+# 项目使用Spring类注解说明
+
+- 由于该项目是测试项目不像发开那样把每层区分Controller层、Service层、dao层
+- 该项目除了dao层用@Repository其它使用通用注解@Component
+
+- 总结
+  - @Component, @Service, @Controller, @Repository是spring注解，注解后可以被spring框架所扫描并注入到spring容器来进行管理
+  - @Component是通用注解，其他三个注解是这个注解的拓展，并且具有了特定的功能
+  - @Repository注解在持久层中，具有将数据库操作抛出的原生异常翻译转化为spring的持久层异常的功能。
+  - @Controller层是spring-mvc的注解，具有将请求进行转发，重定向的功能。
+  - @Service层是业务逻辑层注解，这个注解只是标注该类处于业务逻辑层。
+  
+  用这些注解对应用进行分层之后，就能将请求处理，义务逻辑处理，数据库操作处理分离出来，为代码解耦，也方便了以后项目的维护和开发。
