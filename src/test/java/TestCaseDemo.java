@@ -92,5 +92,4 @@ public class TestCaseDemo {
         ExcelTestResultOutputUtil.exportSheet(loginDatas,sheet1);
     }
 
-
 }

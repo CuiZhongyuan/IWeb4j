@@ -8,15 +8,11 @@ import com.iwebui.entity.UrlMessage;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.page.japhandle.dao.BaiDuLoginDao;
 import com.iwebui.page.japhandle.dao.BaiDuUrlDao;
-import com.iwebui.testcase.BaiduLoginCase;
 import com.iwebui.utils.UIElementUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.List;
