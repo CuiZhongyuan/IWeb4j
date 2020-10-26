@@ -4,19 +4,22 @@
 - base包：负责存放公用的操作方法
 - dto包：存放数据实体对象，对应excel表头字段或数据库字段
 - listener包: testng监听类
-- page包：页面元素操作和执行测试数据
+- page包：页面元素操作和执行测试数据(包含excel数据驱动和数据库驱动)
 - testcase包:业务逻辑用例编写
 - utils包:工具类
 
 # IWeb4j 项目思想
-- IWeb项目的测试用例使用数据驱动测试，当下数据驱动使用最多的无非是excel、yaml、json、数据库（后续通过SpringDataJPA实现数据库驱动）作为数据驱动的载体，四种方式思想都一样只是实现方式不同。
-目前先实现excel数据源驱动。通过开源的Easypoi文档导入导出工具完成，后续会新增数据库、yaml文件的数据驱动方式。
+- IWeb项目的测试用例使用数据驱动测试，当下数据驱动使用最多的无非是excel、yaml、json、数据库驱动。
+目前实现excel、mysql数据源驱动。excel通过开源的Easypoi文档导入导出工具完成，mysql数据库通过SpringDataJPA实现数据驱动方式。
 - 页面元素定位使用封装的关键字库测试，通过dom4j解析xml方式实现。
 - 整体项目属于混合模型开发测试
 
 # 项目主要技术
  
 ### 该项目主要技术
+
+![](https://upload-images.jianshu.io/upload_images/16753854-66edc0876097e425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 技术  | 用途  | 备注
 :----------- | :----------- |-----------
 springboot| 后端项目框架  | 后期可扩展平台
