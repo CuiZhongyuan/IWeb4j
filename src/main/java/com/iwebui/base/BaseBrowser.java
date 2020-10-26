@@ -6,6 +6,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 
 import java.util.Set;
@@ -17,12 +20,12 @@ import java.util.Set;
  * @date 2019/3/8
  */
 @Slf4j
-public class BaseBrowser {
+@Component
+@SpringBootTest
+public class BaseBrowser extends AbstractTestNGSpringContextTests {
     /**
-     * 驱动
+     * 注意：要想通过testng把响应的bean注入，需要继承AbstractTestNGSpringContextTests类，且需要加上@SpringBootTest、@Component注解才能正常获取扫描到的bean对象
      */
-    protected WebDriver driver;
-
     /**
      * 动作
      */
@@ -38,16 +41,6 @@ public class BaseBrowser {
      */
     protected WebDriverWait wait;
 
-    /**
-     * 构造器 1
-     *
-     * @param driver 驱动
-     */
-    public BaseBrowser(WebDriver driver) {
-        this.driver = driver;
-        this.actions = new Actions(driver);
-        this.je = ((JavascriptExecutor) driver);
-    }
 
     /*============================== 基本元素操作 ==============================*/
 
@@ -57,7 +50,7 @@ public class BaseBrowser {
      * @param locator By 类型元素定位
      * @return 定位到的元素
      */
-    public WebElement locateElement(By locator) {
+    public WebElement locateElement(WebDriver driver,By locator) {
         try {
             wait = new WebDriverWait(driver, 20);
             WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -73,10 +66,10 @@ public class BaseBrowser {
      * @param locator By 类型元素定位
      * @return 点击的元素
      */
-    public WebElement clickButton(By locator) {
+    public WebElement clickButton(WebDriver driver,By locator) {
         try{
             long time1 = DateUtils.getCurrentMillisecond();
-            WebElement buttonElement = locateElement(locator);
+            WebElement buttonElement = locateElement(driver,locator);
             buttonElement.click();
             log.info("该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
             return buttonElement;
@@ -91,14 +84,14 @@ public class BaseBrowser {
      * @param locator By 类型元素定位
      * @return 点击弹框按钮，解决弹框按钮可见点击后由于弹框页面后续元素未渲染完成出现点击后没有弹框出现问题
      */
-    public WebElement clickPop(By locator) {
+    public WebElement clickPop(WebDriver driver,By locator) {
         wait = new WebDriverWait(driver, 20);
         try {
             String jsToBeExecute = "return document.readyState =='complete'";
             boolean isReady = (boolean) wait.until(ExpectedConditions.jsReturnsValue(jsToBeExecute));
             if (isReady) {
                 long time1 = DateUtils.getCurrentMillisecond();
-                WebElement buttonPopElement = locateElement(locator);
+                WebElement buttonPopElement = locateElement(driver,locator);
                 buttonPopElement.click();
                 log.info("点击弹框事件耗时：" + (DateUtils.getCurrentMillisecond() - time1) + "ms");
                 return buttonPopElement;
@@ -115,8 +108,8 @@ public class BaseBrowser {
      * @param content 输入的内容，支持多内容，可以键盘输入
      * @return 输入框元素
      */
-    public WebElement sendInput(By locator, CharSequence... content) {
-        WebElement inputElement = locateElement(locator);
+    public WebElement sendInput(WebDriver driver,By locator, CharSequence... content) {
+        WebElement inputElement = locateElement(driver,locator);
         inputElement.clear();
         inputElement.sendKeys(content);
         return inputElement;
@@ -127,8 +120,8 @@ public class BaseBrowser {
      *
      * @param locator 元素定位
      */
-    public void moveToElement(By locator) {
-        actions.moveToElement(locateElement(locator)).perform();
+    public void moveToElement(WebDriver driver,By locator) {
+        actions.moveToElement(locateElement(driver,locator)).perform();
     }
 
     /**
@@ -137,9 +130,9 @@ public class BaseBrowser {
      * @param fromLocator 从...元素
      * @param toLocator   至...元素
      */
-    public void dragAndDropElement(By fromLocator, By toLocator) {
+    public void dragAndDropElement(WebDriver driver,By fromLocator, By toLocator) {
         wait.until(ExpectedConditions.elementToBeClickable(fromLocator));
-        actions.dragAndDrop(locateElement(fromLocator), locateElement(toLocator)).perform();
+        actions.dragAndDrop(locateElement(driver,fromLocator), locateElement(driver,toLocator)).perform();
     }
 
     /**
@@ -147,7 +140,7 @@ public class BaseBrowser {
      *
      * @param url 网址
      */
-    public void enterPage(String url) {
+    public void enterPage(WebDriver driver,String url) {
         try {
             driver.navigate().to(url);
         }catch (NoSuchElementException | TimeoutException  e) {
@@ -163,7 +156,7 @@ public class BaseBrowser {
      *
      * @return 驱动
      */
-    public WebDriver switchNextHandle() {
+    public WebDriver switchNextHandle(WebDriver driver) {
         // 当前窗口句柄
         String currentHandle = driver.getWindowHandle();
         // 所有窗口句柄
@@ -182,7 +175,7 @@ public class BaseBrowser {
      * @param num 号码从 1 开始
      * @return 驱动
      */
-    public WebDriver switchHandleByNum(int num) {
+    public WebDriver switchHandleByNum(WebDriver driver,int num) {
         // 所有窗口句柄
         Set<String> allHandlesSet = driver.getWindowHandles();
         Object[] allHandlesArr = allHandlesSet.toArray();
@@ -197,7 +190,7 @@ public class BaseBrowser {
      * @return 驱动
      * @throws Exception 找不到指定窗口句柄异常
      */
-    public WebDriver switchHandleByTitle(String title) throws Exception {
+    public WebDriver switchHandleByTitle(WebDriver driver,String title) {
         // 当前窗口句柄
         String currentHandle = driver.getWindowHandle();
         // 所有窗口句柄
@@ -210,7 +203,12 @@ public class BaseBrowser {
             }
         }
         driver.switchTo().window(currentHandle);
-        throw new Exception(title + "窗口的句柄不存在");
+        try {
+            throw new Exception(title + "窗口的句柄不存在");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -220,7 +218,7 @@ public class BaseBrowser {
      * @return 驱动
      * @throws Exception 找不到指定窗口句柄异常
      */
-    public WebDriver switchHandleByUrl(String url) throws Exception {
+    public WebDriver switchHandleByUrl(WebDriver driver,String url) throws Exception {
         // 当前窗口句柄
         String currentHandle = driver.getWindowHandle();
         // 所有窗口句柄
@@ -244,8 +242,8 @@ public class BaseBrowser {
      * @param locator frame 定位
      * @return 驱动
      */
-    public WebDriver switchFrame(By locator) {
-        return driver.switchTo().frame(locateElement(locator));
+    public WebDriver switchFrame(WebDriver driver,By locator) {
+        return driver.switchTo().frame(locateElement(driver,locator));
     }
 
     /**
@@ -253,7 +251,7 @@ public class BaseBrowser {
      *
      * @return 驱动
      */
-    public WebDriver switchParentFrame() {
+    public WebDriver switchParentFrame(WebDriver driver) {
         return driver.switchTo().parentFrame();
     }
 
@@ -262,7 +260,7 @@ public class BaseBrowser {
      *
      * @return 驱动
      */
-    public WebDriver switchOutOfFrame() {
+    public WebDriver switchOutOfFrame(WebDriver driver) {
         return driver.switchTo().defaultContent();
     }
 
@@ -306,7 +304,7 @@ public class BaseBrowser {
      *
      * @param by 需要和页面顶端对齐的元素
      */
-    public void scrollElementTopToTop(By by) {
+    public void scrollElementTopToTop(WebDriver driver,By by) {
         executeScript("arguments[0].scrollIntoView(true);", driver.findElement(by));
     }
 
@@ -315,7 +313,7 @@ public class BaseBrowser {
      *
      * @param by 需要和页面底端对齐的元素
      */
-    public void scrollElementBottomToBottom(By by) {
+    public void scrollElementBottomToBottom(WebDriver driver,By by) {
         executeScript("arguments[0].scrollIntoView(false);", driver.findElement(by));
     }
 

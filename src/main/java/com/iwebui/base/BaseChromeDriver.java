@@ -6,12 +6,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
 @Slf4j
+@Component
 public class BaseChromeDriver {
 
     /**

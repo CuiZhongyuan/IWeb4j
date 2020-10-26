@@ -16,9 +16,9 @@ public class BasePage extends BaseBrowser {
      *
      * @param driver 驱动
      */
-    public BasePage(WebDriver driver) {
-        super(driver);
-    }
+//    public BasePage(WebDriver driver) {
+//        super(driver);
+//    }
 
 
     /*============================== 页面可共用的操作 ==============================*/

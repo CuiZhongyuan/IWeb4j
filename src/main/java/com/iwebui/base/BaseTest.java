@@ -1,7 +1,12 @@
 package com.iwebui.base;
 
+import com.iwebui.utils.WordartDisplayer;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
 
 /**
@@ -11,12 +16,14 @@ import org.testng.annotations.*;
  * @date 2019/3/8
  */
 @Slf4j
-public class BaseTest  {
+@Component
+@SpringBootTest
+public class BaseTest  extends AbstractTestNGSpringContextTests{
     /**
      * 驱动基类
      */
+    @Autowired
     private BaseChromeDriver baseDriver;
-
     /**
      * 驱动
      * 对外暴露
@@ -39,7 +46,7 @@ public class BaseTest  {
     @BeforeClass(alwaysRun = true)
     public void beforeTest() {
         /* 驱动配置 */
-        baseDriver = new BaseChromeDriver();
+//        baseDriver = new BaseChromeDriver();
         driver = baseDriver.startBrowser();
     }
     /**
