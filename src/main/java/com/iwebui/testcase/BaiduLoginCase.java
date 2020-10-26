@@ -10,22 +10,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
 public class BaiduLoginCase extends BaseTest {
-
-    private BaiDuCaseEasypoiHandle baiDuCaseElement;
+    @Autowired
+    private BaiDuCaseEasypoiHandle baiDuCaseEasypoiHandle;
     @Autowired
     BaiDuCaseJpaHandle baiDuCaseJpaHandle;
-    //进入被测网页
-    @Severity( SeverityLevel.NORMAL)
-    @Description("百度登录测试示例")
-    @Test
-    public void baiduLogin(){
-        //初始化ticketElement，获取驱动
-        baiDuCaseElement = new BaiDuCaseEasypoiHandle(driver);
-        baiDuCaseElement.serchBaidu();
-        //excel数据驱动测试-使用easypoi实现
-        baiDuCaseElement.loginCase();
-        //数据库驱动测试-使用springJPA实现
-//        baiDuCaseJpaHandle.getAll();
 
+    /**
+     * easypoi实现excel数据驱动
+     */
+    @Severity( SeverityLevel.NORMAL)
+    @Description("百度登录测试示例--使用easypoi实现")
+    @Test
+    public void baibaiDuCaseEasypoiHandle(){
+        //初始化ticketElement，获取驱动
+        baiDuCaseEasypoiHandle.serchBaidu(driver);
+        //excel数据驱动测试-使用easypoi实现
+        baiDuCaseEasypoiHandle.loginCase(driver);
+    }
+
+    /**
+     * JPA实现数据库数据驱动示例
+     */
+    @Severity( SeverityLevel.NORMAL)
+    @Description("百度登录测试示例--使用JPA实现")
+    @Test
+    public void baiDuCaseJpaHandle(){
+        //进入被测网址
+        baiDuCaseJpaHandle.serchBaidu(driver);
+        //数据库驱动，使用jpa实现
+        baiDuCaseJpaHandle.getAll(driver);
     }
 }

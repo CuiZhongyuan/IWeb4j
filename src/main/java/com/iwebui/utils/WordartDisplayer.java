@@ -1,4 +1,4 @@
-package com.iwebui.base;
+package com.iwebui.utils;
 
 /**
  * 艺术字展示

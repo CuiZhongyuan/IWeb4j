@@ -8,30 +8,24 @@ import com.iwebui.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Slf4j
+@Component
 public class BaiDuCaseEasypoiHandle extends BaseBrowser {
-    /**
-     * 构造器 1
-     *
-     * @param driver 驱动
-     */
-    public BaiDuCaseEasypoiHandle(WebDriver driver) {
-        super(driver);
-    }
-
     /**
      * 进入被测页面
      */
-    public void serchBaidu() {
+    public void serchBaidu(WebDriver driver) {
         log.info("开始进入被测页面");
-        enterPage(AccountData.BAIDUURL);
+        enterPage(driver,AccountData.BAIDUURL);
     }
     /**
      * 进行读取报个测试用例进行测试并批量写入实际测试结果，和多sheet表之间的关联
      */
-    public void loginCase() {
+    public void loginCase(WebDriver driver) {
         UIElementUtil.clickButton("百度登录","点击右上角登录按钮",driver);
         UIElementUtil.clickButton("百度登录","点击账号密码登录按钮",driver);
         String excelCasePath = (String) LoadStaticConfigUtil.getCommonYml( "testcaseexcel.cases");
