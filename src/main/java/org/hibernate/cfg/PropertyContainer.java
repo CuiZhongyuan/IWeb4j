@@ -23,6 +23,7 @@ import org.hibernate.internal.util.StringHelper;
 import org.jboss.logging.Logger;
 
 /**
+ * 解决数据实体对象创建表乱序问题
  *
  */
 class PropertyContainer {
