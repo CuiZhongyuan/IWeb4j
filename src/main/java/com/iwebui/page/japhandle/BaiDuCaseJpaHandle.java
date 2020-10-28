@@ -57,8 +57,6 @@ public class BaiDuCaseJpaHandle extends BaseBrowser {
                 UIElementUtil.clickButton("百度登录","登录按钮",driver);
                 actual = driver.findElement(AccountData.TIPS).getText();
                 baiDuLoginDao.updateActual(actual,logincase.getId());
-
-
             }else {
                 UrlMessage urlMessage = map.get(logincase.getUrlId());
                 address = urlMessage.getAddress();

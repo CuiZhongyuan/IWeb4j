@@ -44,9 +44,11 @@ public class BaiDuCaseEasypoiHandle extends BaseBrowser {
             UIElementUtil.sendInput("百度登录","登录账号",driver,loginData.getName()==null? "" : loginData.getName());
             UIElementUtil.sendInput("百度登录","登录密码",driver,loginData.getPwd()==null? "" : loginData.getPwd());
             UIElementUtil.clickButton("百度登录","登录按钮",driver);
+            //获取登录提示语
             String getResponseTip = driver.findElement(AccountData.TIPS).getText();
             loginData.setActual(getResponseTip);
             WebElement element = UIElementUtil.getElementByKeyword("百度登录","登录按钮",driver);
+            //封装断言，判断实际提示语与预期提示语
             AssertWebUtil.textToBePresentInElement(element,"期望结果",driver);
         }
         ExcelTestResultOutputUtil.exportSheet(loginDatas,urlDatas);

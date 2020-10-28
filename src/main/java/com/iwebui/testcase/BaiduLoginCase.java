@@ -7,8 +7,10 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners(com.iwebui.listener.AssertListener.class)
 public class BaiduLoginCase extends BaseTest {
     @Autowired
     private BaiDuCaseEasypoiHandle baiDuCaseEasypoiHandle;
