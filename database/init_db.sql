@@ -59,3 +59,4 @@ INSERT INTO `urlpath` VALUES (1, 'get', 'https://www.baidu.com/');
 INSERT INTO `urlpath` VALUES (2, 'poat', 'https://www.jianshu.com/');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
