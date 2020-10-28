@@ -53,7 +53,7 @@ public class BaseTest  extends AbstractTestNGSpringContextTests{
      * 执行一个测试用例之后执行
      */
     @AfterClass(alwaysRun = true)
-    public void afterTest() throws InterruptedException {
+    public void afterTest()  {
         // 驱动退出关闭浏览器
         baseDriver.closeBrowser();
 //        driver = null;
