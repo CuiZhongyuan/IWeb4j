@@ -7,9 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 
-@Listeners(com.iwebui.listener.AssertListener.class)
+
 public class AssertWebUtil {
     public  static WebDriverWait wait;
     /**
@@ -36,14 +35,15 @@ public class AssertWebUtil {
         }catch (Exception e){
             textToBePresentInElement = false;
             //test body断言失败展示
-            Allure.step("断言失败",Status.FAILED);
+             Allure.step("断言失败",Status.FAILED);
             //allure异常截图
             SaveFailureScreenUtil.saveFailureScreenShot(driver);
             //获取异常信息后添加至allure的test body中【异常信息封装成一个集合，这里需要转成String类型】
-            Allure.addAttachment("异常信息打印：", AssertRewriteUtil.errors.toString());
+            Allure.addAttachment("异常信息打印：", AssertionOverrideUtil.errors.toString());
         }
-        AssertRewriteUtil.assertTrue(textToBePresentInElement);
-        System.out.println(AssertRewriteUtil.errors);
+        AssertionOverrideUtil.verifyTrue(textToBePresentInElement);
+        System.out.println(textToBePresentInElement);
+        System.out.println(AssertionOverrideUtil.errors);
     }
     /**
      *断言页面指定元素是否可点击
@@ -59,5 +59,7 @@ public class AssertWebUtil {
         }
         Assert.assertTrue(elementToBeClickable);
     }
+
+
 
 }

@@ -1,44 +1,52 @@
 package com.iwebui.listener;
 
-import com.iwebui.utils.AssertRewriteUtil;
+import com.iwebui.utils.AssertionOverrideUtil;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 集成allure报告
+ *
+ * @author czy
+ * @date 2020/7/15
+ */
 public class AssertListener extends TestListenerAdapter {
-    /**
-     * @author czy
-     * @date 2020-10-20  下午 12:49
-     */
+
         @Override
-        public void onTestStart(ITestResult result){
-            AssertRewriteUtil.flag=true;
-            AssertRewriteUtil.errors.clear();
+        public void onTestStart(ITestResult result) {
+            AssertionOverrideUtil.flag = true;
+            AssertionOverrideUtil.errors.clear();
         }
+
         @Override
-        public void onTestFailure(ITestResult tr){
+        public void onTestFailure(ITestResult tr) {
             this.handleAssertion(tr);
         }
+
         @Override
-        public void onTestSkipped(ITestResult tr){
+        public void onTestSkipped(ITestResult tr) {
             this.handleAssertion(tr);
         }
+
         @Override
-        public void onTestSuccess(ITestResult tr){
+        public void onTestSuccess(ITestResult tr) {
             this.handleAssertion(tr);
         }
-        private  int index=0;
+
+        private int index = 0;
+
         private void handleAssertion(ITestResult tr){
-            if(!AssertRewriteUtil.flag){
+            if(!AssertionOverrideUtil.flag){
                 Throwable throwable = tr.getThrowable();
                 if(throwable==null){
                     throwable = new Throwable();
                 }
                 StackTraceElement[] traces = throwable.getStackTrace();
                 StackTraceElement[] alltrace = new StackTraceElement[0];
-                for (Error e : AssertRewriteUtil.errors) {
+                for (Error e : AssertionOverrideUtil.errors) {
                     StackTraceElement[] errorTraces = e.getStackTrace();
                     StackTraceElement[] et = this.getKeyStackTrace(tr, errorTraces);
                     StackTraceElement[] message = new StackTraceElement[]{new StackTraceElement("message : "+e.getMessage()+" in method : ", tr.getMethod().getMethodName(), tr.getTestClass().getRealClass().getSimpleName(), index)};
@@ -50,15 +58,14 @@ public class AssertListener extends TestListenerAdapter {
                     traces = this.getKeyStackTrace(tr, traces);
                     alltrace = this.merge(alltrace, traces);
                 }
-
-
                 throwable.setStackTrace(alltrace);
                 tr.setThrowable(throwable);
-                AssertRewriteUtil.flag = true;
-                AssertRewriteUtil.errors.clear();
+                AssertionOverrideUtil.flag = true;
+                AssertionOverrideUtil.errors.clear();
                 tr.setStatus(ITestResult.FAILURE);
             }
         }
+
         private StackTraceElement[] getKeyStackTrace(ITestResult tr, StackTraceElement[] stackTraceElements){
             List<StackTraceElement> ets = new ArrayList<StackTraceElement>();
             for (StackTraceElement stackTraceElement : stackTraceElements) {
@@ -73,6 +80,7 @@ public class AssertListener extends TestListenerAdapter {
             }
             return et;
         }
+
         private StackTraceElement[] merge(StackTraceElement[] traces1, StackTraceElement[] traces2){
             StackTraceElement[] ste = new StackTraceElement[traces1.length+traces2.length];
             for (int i = 0; i < traces1.length; i++) {
