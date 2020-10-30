@@ -14,6 +14,11 @@
 - 页面元素定位使用封装的关键字库测试，通过dom4j解析xml方式实现。
 - 整体项目属于混合模型开发测试
 
+- 版本匹配：该项目使用的chrome驱动和chrome安装包连接
+```
+链接：https://pan.baidu.com/s/11ju-mPxZAFIHCZGStYF15g 
+提取码：44nt 
+```
 # 项目主要技术
  
 ### 该项目主要技术
