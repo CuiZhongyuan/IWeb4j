@@ -20,26 +20,26 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @Entity
-@Table(name = "urlpath")
+@Table(name = "pageMsg")
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler"})
 @DynamicInsert
 @DynamicUpdate
-public class UrlMessage {
+public class PageMsg {
         private static final long serialVersionUID = 1L;
         /**
-         * url的id
+         * page的id
          */
         @GeneratedValue(strategy= GenerationType.IDENTITY)
         @NotBlank(message = "id不能为空")
         @Id
         private Long id;
         /**
-        * 请求类型：get/post/put/delete/update
+        * 页面请求类型：get/post/put/delete/update
         */
-        @NotBlank(message = "URL不能为空")
+        @NotBlank(message = "page不能为空")
         private String type ;
         /**
-        * 请求地址address
+        * page请求地址address(对应-testData)
         */
         @NotBlank(message = "url地址不能为空")
         private String address;

@@ -1,0 +1,22 @@
+<Pages>
+<!--定义一个page对象，对应web系统中某个页面-->
+    <Page keyword="简书搜索功能测试">
+        <!-- 定义UIElement对象，对应该页面上的每个元素-->
+        <!--keyword:页面元素的关键字，by：定位元素的方法，value:选择器的值-->
+        <UIElement keyword="CodingTest" by="cssSelector" value="input[placeholder='搜索']"  ></UIElement>
+        <UIElement keyword="搜索按钮" by="cssSelector" value="a[class='search-btn']"  ></UIElement>
+        <UIElement keyword="点击CodingTest用户" by="xpath" value="/html/body/div[1]/div/div[2]/div[1]/div/div[2]/div/div/a"></UIElement>
+    </Page>
+    <Page keyword="百度登录">
+        <!-- 定义UIElement对象，对应该页面上的每个元素-->
+        <!--keyword:页面元素的关键字，by：定位元素的方法，value:选择器的值-->
+        <UIElement keyword="点击右上角登录按钮" by="linkText" value="登录"  ></UIElement>
+        <UIElement keyword="点击账号密码登录按钮" by="xpath" value="//*[@id='TANGRAM__PSP_11__footerULoginBtn']" ></UIElement>
+        <UIElement keyword="登录账号" by="xpath" value="//*[@id='TANGRAM__PSP_11__userName']" ></UIElement>
+        <UIElement keyword="登录密码" by="xpath" value="//*[@id='TANGRAM__PSP_11__password']" ></UIElement>
+        <UIElement keyword="登录按钮" by="xpath" value="//*[@id='TANGRAM__PSP_11__submit']" ></UIElement>
+    </Page>
+
+
+
+</Pages>

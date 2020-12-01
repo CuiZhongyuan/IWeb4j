@@ -19,46 +19,45 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Getter
 @Entity
-@Table(name = "logincase")
+@Table(name = "testData")
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler"})
 @DynamicInsert
 @DynamicUpdate
-public class Logincase {
+public class TestData {
         private static final long serialVersionUID = 1L;
         /**
-         * url的id
+         * page测试数据id
          */
         @GeneratedValue(strategy= GenerationType.IDENTITY)
         @Id
         private Long id;
         /**
+        * 被测PointId
+        */
+        @NotBlank(message = "pointId不能为空")
+        private Long pointId ;
+        /**
          * 绑定状态 0 正向测试 1 反向测试
          */
         private Integer caseStatus = 1;
         /**
-        * 请求地址address
-        */
-        @NotBlank(message = "urlid不能为空")
-        private Long urlId ;
-        /**
-         * 登录账号
+         * testData测试数据1
          */
         private String name;
         /**
-         * 登录密码
+         * testData测试数据1
          */
         private String pwd;
         /**
-         * 登录密码
+         * page的期望测试结果
          */
         private String expect;
         /**
-         * 登录密码
+         * pagede的实际测试结果
          */
         private String actual;
         /**
-         * 登录密码
+         * remark备注信息
          */
-        private String urlPath;
-
+        private String remark;
 }
