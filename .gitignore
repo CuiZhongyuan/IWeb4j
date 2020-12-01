@@ -16,3 +16,4 @@ buildNumber.properties
 /com.iwebui/
 /src/main/resources/printscreen/
 /test-output/
+/allure-results/
