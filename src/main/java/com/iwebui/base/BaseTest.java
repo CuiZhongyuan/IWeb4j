@@ -23,7 +23,7 @@ public class BaseTest  extends AbstractTestNGSpringContextTests{
      * 驱动基类
      */
     @Autowired
-    private BaseChromeDriver baseDriver;
+    public BaseChromeDriver baseDriver;
     /**
      * 驱动
      * 对外暴露

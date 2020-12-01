@@ -2,9 +2,8 @@ package com.iwebui.page.japhandle;
 
 
 import com.iwebui.base.BaseBrowser;
-import com.iwebui.base.BaseTest;
-import com.iwebui.entity.Logincase;
-import com.iwebui.entity.UrlMessage;
+import com.iwebui.entity.TestData;
+import com.iwebui.entity.PageMsg;
 import com.iwebui.page.data.AccountData;
 import com.iwebui.page.japhandle.dao.BaiDuLoginDao;
 import com.iwebui.page.japhandle.dao.BaiDuUrlDao;
@@ -31,13 +30,13 @@ public class BaiDuCaseJpaHandle extends BaseBrowser {
         enterPage(driver,AccountData.BAIDUURL);
     }
 
-    public List<Logincase> getAll(WebDriver driver) {
+    public List<TestData> getAll(WebDriver driver) {
         UIElementUtil.clickButton("百度登录","点击右上角登录按钮",driver);
         UIElementUtil.clickButton("百度登录","点击账号密码登录按钮",driver);
-        List<Logincase> logincaseList = baiDuLoginDao.findAll();
-        List<UrlMessage> urlMessageList = baiDuUrlDao.findAll();
+        List<TestData> logincaseList = baiDuLoginDao.findAll();
+        List<PageMsg> urlMessageList = baiDuUrlDao.findAll();
         //2.使用自定义写的sql方法操作数据库
-        Map<Long, UrlMessage> map = new HashMap<>();
+        Map<Long, PageMsg> map = new HashMap<>();
         urlMessageList.forEach(urlMessage -> {
             map.put(urlMessage.getId(), urlMessage);
         });
@@ -45,7 +44,7 @@ public class BaiDuCaseJpaHandle extends BaseBrowser {
             String address = "";
             String actual = "";
             if (logincase.getCaseStatus().equals(1)) {
-                UrlMessage urlMessage = map.get(logincase.getUrlId());
+                PageMsg urlMessage = map.get(logincase.getPointId());
                 if (urlMessage != null) {
                     address = urlMessage.getAddress();
                 }
@@ -58,7 +57,7 @@ public class BaiDuCaseJpaHandle extends BaseBrowser {
                 actual = driver.findElement(AccountData.TIPS).getText();
                 baiDuLoginDao.updateActual(actual,logincase.getId());
             }else {
-                UrlMessage urlMessage = map.get(logincase.getUrlId());
+                PageMsg urlMessage = map.get(logincase.getPointId());
                 address = urlMessage.getAddress();
                 baiDuLoginDao.updateLogincase(address, logincase.getId());
             }
