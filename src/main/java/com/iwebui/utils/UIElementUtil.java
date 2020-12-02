@@ -101,8 +101,7 @@ public class UIElementUtil {
      * @param value  选择器值
      */
     public static WebElement getVisibleElement(String by, String value,  WebDriver driver) {
-        int webDriverWait = (int) LoadStaticConfigUtil.getCommonYml("browser.webDriverWait");
-        wait = new WebDriverWait(driver,webDriverWait);
+        wait = new WebDriverWait(driver,20);
         By locator =null;
         WebElement element = null;
         if ("id".equalsIgnoreCase(by)){
@@ -157,8 +156,7 @@ public class UIElementUtil {
      * @param content 输入
      */
     public static WebElement clickPop(String pageKeyword, String uiElementKeyword, WebDriver driver, CharSequence... content) {
-        int webDriverWait = (int) LoadStaticConfigUtil.getCommonYml("browser.webDriverWait");
-        wait = new WebDriverWait(driver, webDriverWait);
+        wait = new WebDriverWait(driver, 20);
         try {
             String jsToBeExecute = "return document.readyState =='complete'";
             boolean isReady = (boolean) wait.until(ExpectedConditions.jsReturnsValue(jsToBeExecute));

@@ -15,7 +15,6 @@ import java.io.File;
 public class SaveFailureScreenUtil {
     /**
      * allure报个截图方法
-     *
      * @author czy
      */
     @Attachment(value = "失败截图如下：",type = "image/png")
@@ -26,6 +25,7 @@ public class SaveFailureScreenUtil {
     }
     /**
      * 针对alert弹框截图的特殊操作，截取整个win屏幕
+     * @author czy
      * */
     public static void alertScreen(WebDriver driver){
         try {
