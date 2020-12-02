@@ -192,4 +192,21 @@ public class UIElementUtil {
             return null;
         }
     }
+    /**
+     * 返回定位元素
+     * @param pageKeyword 页面关键字
+     * @param uiElementKeyword 元素关键字
+     * @param driver 传入的驱动
+     */
+    public static WebElement getElement(String pageKeyword, String uiElementKeyword, WebDriver driver) {
+        try{
+            long time1 = DateUtils.getCurrentMillisecond();
+            WebElement buttonElement =getElementByKeyword(pageKeyword,uiElementKeyword,driver);
+            log.info("["+uiElementKeyword+"]该点击事件耗时："+(DateUtils.getCurrentMillisecond()-time1)+"ms");
+            return buttonElement;
+        }catch (Exception e) {
+            System.out.println("================元素不存在或不可点击状态，请查看=================="+pageKeyword+"页面下的/"+uiElementKeyword+"该关键字对应的：value元素不存在");
+            return null;
+        }
+    }
 }

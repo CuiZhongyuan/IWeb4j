@@ -11,10 +11,13 @@ import org.testng.Assert;
 
 public class AssertWebUtil {
     public  static WebDriverWait wait;
+    static  int webDriverWait = (int) LoadStaticConfigUtil.getCommonYml("browser.webDriverWait");
     /**
      *断言当前页面是否包含url
      */
     public static void urlContains(String inurlContains, WebDriver driver){
+
+        wait = new WebDriverWait(driver,webDriverWait);
         boolean urlContains = true;
         try{
             wait.until(ExpectedConditions.urlContains(inurlContains));
@@ -30,6 +33,7 @@ public class AssertWebUtil {
      */
     public static void textToBePresentInElement(WebElement element, String text,WebDriver driver){
         boolean textToBePresentInElement = true;
+        wait = new WebDriverWait(driver,webDriverWait);
         try{
             wait.until(ExpectedConditions.textToBePresentInElement(element,text));
         }catch (Exception e){
